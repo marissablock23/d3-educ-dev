@@ -1,0 +1,194 @@
+[
+  {
+    "country": "Andorra",
+    "litrate": 100,
+    "gdp": 41765.9204,
+    "Region": "Europe & Central Asia"
+  },
+  {
+    "country": "Argentina",
+    "litrate": 98.09,
+    "gdp": 10498.5925,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Azerbaijan",
+    "litrate": 99.7881,
+    "gdp": 6117.0309,
+    "Region": "Europe & Central Asia"
+  },
+  {
+    "country": "Bolivia",
+    "litrate": 92.4551,
+    "gdp": 2392.984,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Cabo Verde",
+    "litrate": 86.7903,
+    "gdp": 3362.21,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Chad",
+    "litrate": 26.003,
+    "gdp": 962.6559,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Colombia",
+    "litrate": 94.245,
+    "gdp": 7446.1824,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Dominican Republic",
+    "litrate": 91.9912,
+    "gdp": 6562.7671,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Ecuador",
+    "litrate": 94.4557,
+    "gdp": 5352.8765,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "El Salvador",
+    "litrate": 87.9698,
+    "gdp": 3333.9462,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Greenland",
+    "litrate": 100,
+    "gdp": 46738.0623,
+    "Region": "Europe & Central Asia"
+  },
+  {
+    "country": "Honduras",
+    "litrate": 87.9068,
+    "gdp": 2102.377,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Indonesia",
+    "litrate": 95.2179,
+    "gdp": 3827.5508,
+    "Region": "East Asia & Pacific"
+  },
+  {
+    "country": "Kuwait",
+    "litrate": 95.6854,
+    "gdp": 35053.5908,
+    "Region": "Middle East & North Africa"
+  },
+  {
+    "country": "Malawi",
+    "litrate": 62.1435,
+    "gdp": 483.6288,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Mali",
+    "litrate": 33.0689,
+    "gdp": 726.2481,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Mauritius",
+    "litrate": 92.7076,
+    "gdp": 9468.9407,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Mexico",
+    "litrate": 94.4723,
+    "gdp": 9717.8984,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Oman",
+    "litrate": 93.0386,
+    "gdp": 16957.8543,
+    "Region": "Middle East & North Africa"
+  },
+  {
+    "country": "Palau",
+    "litrate": 96.5937,
+    "gdp": 10577.5833,
+    "Region": "East Asia & Pacific"
+  },
+  {
+    "country": "Paraguay",
+    "litrate": 95.0727,
+    "gdp": 3822.8629,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Peru",
+    "litrate": 94.1623,
+    "gdp": 5937.2854,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Singapore",
+    "litrate": 96.8255,
+    "gdp": 52785.3064,
+    "Region": "East Asia & Pacific"
+  },
+  {
+    "country": "South Africa",
+    "litrate": 94.3679,
+    "gdp": 7575.1748,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Spain",
+    "litrate": 98.1433,
+    "gdp": 30532.45,
+    "Region": "Europe & Central Asia"
+  },
+  {
+    "country": "Tanzania",
+    "litrate": 77.8872,
+    "gdp": 835.9709,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Thailand",
+    "litrate": 92.8683,
+    "gdp": 5739.7627,
+    "Region": "East Asia & Pacific"
+  },
+  {
+    "country": "Togo",
+    "litrate": 63.7456,
+    "gdp": 545.5779,
+    "Region": "Sub-Saharan Africa"
+  },
+  {
+    "country": "Turkey",
+    "litrate": 95.6014,
+    "gdp": 13898.7488,
+    "Region": "Europe & Central Asia"
+  },
+  {
+    "country": "Uruguay",
+    "litrate": 98.5239,
+    "gdp": 13859.4074,
+    "Region": "Latin America & Caribbean"
+  },
+  {
+    "country": "Uzbekistan",
+    "litrate": 99.9838,
+    "gdp": 1851.4728,
+    "Region": "Europe & Central Asia"
+  },
+  {
+    "country": "West Bank and Gaza",
+    "litrate": 96.6907,
+    "gdp": 2641.7989,
+    "Region": "Middle East & North Africa"
+  }
+] 

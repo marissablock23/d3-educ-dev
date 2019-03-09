@@ -1,0 +1,565 @@
+country,year,type,value
+Albania,2012,overall,8.049999999999999
+Algeria,2001,overall,2.2
+Argentina,2003,overall,11
+Australia,2010,overall,8.3
+Austria,2008,overall,6.5
+Azerbaijan,1995,overall,3.7
+Bangladesh,2006,overall,10
+Belarus,2002,overall,6.9
+Belgium,1997,overall,9.6
+Belize,2005,overall,10
+Bolivia,2002,overall,10.3
+Bosnia & Herzegovina,2002,overall,8.1
+Botswana,1995,overall,16
+Brazil,2001,overall,15.7
+Bulgaria,2003,overall,6.7
+Burkina Faso,1980,overall,9.6
+Cambodia,2007,overall,8.5
+Cambodia,2007,overall,6.699999999999999
+Cameroon,1995,overall,5.96
+Canada,2001,overall,11
+Chile,2003,overall,12
+China,2009,overall,10.33
+Colombia,2014,overall,11.3
+Costa Rica,1992,overall,8.5
+Cote d'Ivoire,1987,overall,13.1
+Cote d'Ivoire,1987,overall,13.1
+Cote d'Ivoire,1987,overall,13.1
+Cote d'Ivoire,1987,overall,13.1
+Cote d'Ivoire,1987,overall,6.8
+Cote d'Ivoire,1987,overall,6.8
+Cote d'Ivoire,1987,overall,6.8
+Cote d'Ivoire,1987,overall,6.8
+Croatia,2001,overall,10.1
+Cyprus,1994,overall,5.2
+Czech Republic,2002,overall,6.6
+Denmark,1997,overall,12.4
+Djibouti,1996,overall,11.6
+Dominican Republic,1995,overall,9.4
+Ecuador,2002,overall,6.5
+Egypt,2011,overall,3.4
+El Salvador,1992,overall,7.6
+Eritrea,2002,overall,10.9
+Estonia,1994,overall,5.4
+Ethiopia,2011,overall,12.5
+Finland,1995,overall,8.2
+France,2001,overall,11
+Gambia,2003,overall,6.8
+Georgia,2006,overall,6.9
+Germany,2006,overall,6.9
+Ghana,2007,overall,4.2
+Great Britain,2002,overall,9
+Greece,2001,overall,4
+Guatemala,2000,overall,12.6
+Guatemala,2000,overall,12.6
+Guatemala,2000,overall,12.6
+Guatemala,2000,overall,12.6
+Guatemala,2000,overall,9.4
+Guatemala,2000,overall,9.4
+Guatemala,2000,overall,9.4
+Guatemala,2000,overall,9.4
+Honduras,1991,overall,9.3
+Hong Kong,1981,overall,6.1
+Hungary,2004,overall,10.7
+India,2008,overall,10.8
+Indonesia,2007,overall,10.7
+Iran,2006,overall,7.6
+Iraq,2006,overall,0.7
+Ireland,1995,overall,8.5
+Israel,2001,overall,12.1
+Italy,2001,overall,15.7
+Jamaica,1989,overall,28.8
+Japan,1995,overall,7.5
+Jordan,2001,overall,6.7
+Kazakhstan,2001,overall,8
+Kenya,1995,overall,13.2
+Korea,2002,overall,7.3
+Kuwait,2010,overall,4.8
+Kyrgyzstan,1996,overall,4
+Latvia,2012,overall,7.69
+Madagascar,1993,overall,15.1
+Malawi,2012,overall,8.8
+Malaysia,2004,overall,10
+Maldives,2004,overall,8.1
+Malta,2001,overall,25.7
+Mexico,2002,overall,13.2
+Moldova,2003,overall,8
+Mongolia,2002,overall,8.5
+Morocco,2001,overall,2.8
+Namibia,2003,overall,28
+Nepal,2008,overall,7.9
+Netherlands,2006,overall,8.1
+New Zealand,1995,overall,3.3
+Nicaragua,2001,overall,11.2
+Niger,2011,overall,11.1
+Nigeria,2011,overall,5.7
+Northern Ireland,1995,overall,17.4
+Norway,1995,overall,6
+Pakistan,2009,overall,6.2
+Palestine,2011,overall,5.1
+Panama,2009,overall,10.9
+Papua New Guinea,1987,overall,11.1
+Paraguay,1990,overall,11.6
+Peru,2001,overall,10.7
+Philippines,2000,overall,12.6
+Poland,2002,overall,10.6
+Portugal,2001,overall,7.5
+Puerto Rico,1989,overall,15.1
+Romania,2009,overall,11.3
+Russia,2002,overall,9.2
+Rwanda,2001,overall,17.5
+Serbia,2013,overall,10
+Singapore,2000,overall,13.2
+Slovakia,2002,overall,6.1
+Slovenia,2002,overall,8.2
+South Africa,2008,overall,18.7
+Spain,2001,overall,7.5
+Sri Lanka,2008,overall,8.9
+Sudan,2009,overall,4.9
+Sudan,2009,overall,4.9
+Sudan,2009,overall,4.9
+Sudan,2009,overall,4.9
+Suriname,1992,overall,9.851285714285712
+Sweden,1995,overall,5.7
+Switzerland,1998,overall,9
+Taiwan,1998,overall,19.01
+Tajikistan,2004,overall,3.6
+Tanzania,2007,overall,11.1
+Thailand,2010,overall,12.63
+Timor-Leste,2007,overall,3.9
+Tunisia,2011,overall,7
+Turkey,2008,overall,11.8
+Uganda,2008,overall,11.9
+Ukraine,2002,overall,4.5
+United Arab Emirates,2006,overall,7
+United States of America,2000,overall,13.4
+Uruguay,1990,overall,9.1
+Venezuela,2008,overall,6.4
+Vietnam,2014,overall,5.7
+Zambia,1995,overall,10.65
+Zimbabwe,1994,overall,5.57
+Albania,2004,overall,NA
+Argentina,2002,overall,NA
+Belarus,2001,overall,NA
+Bolivia,1990,overall,NA
+Botswana,1994,overall,NA
+Brazil,1997,overall,NA
+Bulgaria,1999,overall,NA
+Burkina Faso,1994,overall,NA
+Burundi,2006,overall,NA
+Cameroon,1994,overall,NA
+Chile,1982,overall,NA
+Dominica,1999,overall,NA
+Hong Kong,1996,overall,NA
+India,1999,overall,NA
+India,1999,overall,NA
+India,1999,overall,NA
+India,1999,overall,NA
+Indonesia,2002,overall,NA
+Italy,1993,overall,NA
+Lebanon,2002,overall,NA
+Mali,2007,overall,NA
+Pakistan,2001,overall,NA
+Peru,1991,overall,NA
+Rwanda,2005,overall,NA
+Serbia,2004,overall,NA
+South Africa,2010,overall,NA
+St. Lucia,2004,overall,NA
+Taiwan,1995,overall,NA
+Tanzania,2011,overall,NA
+Timor-Leste,2004,overall,NA
+Togo,2011,overall,NA
+Venezuela,2002,overall,NA
+Austria,1981,overall,NA
+Barbados,1999,overall,NA
+Belgium,1992,overall,NA
+China,2001,overall,NA
+Dominican Republic,2003,overall,NA
+Estonia,2000,overall,NA
+Guyana,1997,overall,NA
+Kyrgyzstan,1997,overall,NA
+Latvia,2002,overall,NA
+Lithuania,2000,overall,NA
+Portugal,1994,overall,NA
+Spain,1994,overall,NA
+Sri Lanka,2000,overall,NA
+Sweden,2001,overall,NA
+Trinidad and Tobago,1997,overall,NA
+Yugoslavia,1996,overall,NA
+Albania,2012,primary,NA
+Algeria,2001,primary,NA
+Argentina,2003,primary,NA
+Australia,2010,primary,NA
+Austria,2008,primary,NA
+Azerbaijan,1995,primary,5.5
+Bangladesh,2006,primary,NA
+Belarus,2002,primary,NA
+Belgium,1997,primary,NA
+Belize,2005,primary,NA
+Bolivia,2002,primary,NA
+Bosnia & Herzegovina,2002,primary,12.5
+Botswana,1995,primary,NA
+Brazil,2001,primary,NA
+Bulgaria,2003,primary,NA
+Burkina Faso,1980,primary,NA
+Cambodia,2007,primary,3.6750000000000007
+Cambodia,2007,primary,3.6750000000000007
+Cameroon,1995,primary,NA
+Canada,2001,primary,NA
+Chile,2003,primary,NA
+China,2009,primary,NA
+Colombia,2014,primary,NA
+Costa Rica,1992,primary,NA
+Cote d'Ivoire,1987,primary,26.3
+Cote d'Ivoire,1987,primary,26.3
+Cote d'Ivoire,1987,primary,15
+Cote d'Ivoire,1987,primary,15
+Cote d'Ivoire,1987,primary,26.3
+Cote d'Ivoire,1987,primary,26.3
+Cote d'Ivoire,1987,primary,15
+Cote d'Ivoire,1987,primary,15
+Croatia,2001,primary,NA
+Cyprus,1994,primary,NA
+Czech Republic,2002,primary,NA
+Denmark,1997,primary,NA
+Djibouti,1996,primary,10
+Dominican Republic,1995,primary,NA
+Ecuador,2002,primary,6.6
+Egypt,2011,primary,2.1
+El Salvador,1992,primary,NA
+Eritrea,2002,primary,NA
+Estonia,1994,primary,NA
+Ethiopia,2011,primary,17.3
+Finland,1995,primary,NA
+France,2001,primary,NA
+Gambia,2003,primary,NA
+Georgia,2006,primary,NA
+Germany,2006,primary,NA
+Ghana,2007,primary,4.4
+Great Britain,2002,primary,NA
+Greece,2001,primary,NA
+Guatemala,2000,primary,6.4
+Guatemala,2000,primary,6.4
+Guatemala,2000,primary,13.3
+Guatemala,2000,primary,13.3
+Guatemala,2000,primary,6.4
+Guatemala,2000,primary,6.4
+Guatemala,2000,primary,13.3
+Guatemala,2000,primary,13.3
+Honduras,1991,primary,NA
+Hong Kong,1981,primary,NA
+Hungary,2004,primary,NA
+India,2008,primary,NA
+Indonesia,2007,primary,NA
+Iran,2006,primary,NA
+Iraq,2006,primary,2.2
+Ireland,1995,primary,NA
+Israel,2001,primary,NA
+Italy,2001,primary,NA
+Jamaica,1989,primary,NA
+Japan,1995,primary,NA
+Jordan,2001,primary,NA
+Kazakhstan,2001,primary,NA
+Kenya,1995,primary,2
+Korea,2002,primary,NA
+Kuwait,2010,primary,NA
+Kyrgyzstan,1996,primary,-3.9
+Latvia,2012,primary,NA
+Madagascar,1993,primary,NA
+Malawi,2012,primary,8.1
+Malaysia,2004,primary,NA
+Maldives,2004,primary,NA
+Malta,2001,primary,NA
+Mexico,2002,primary,NA
+Moldova,2003,primary,NA
+Mongolia,2002,primary,NA
+Morocco,2001,primary,NA
+Namibia,2003,primary,NA
+Nepal,2008,primary,NA
+Netherlands,2006,primary,NA
+New Zealand,1995,primary,NA
+Nicaragua,2001,primary,6.3
+Niger,2011,primary,5.5
+Nigeria,2011,primary,4.8
+Northern Ireland,1995,primary,NA
+Norway,1995,primary,NA
+Pakistan,2009,primary,NA
+Palestine,2011,primary,4.1
+Panama,2009,primary,3.6
+Papua New Guinea,1987,primary,NA
+Paraguay,1990,primary,NA
+Peru,2001,primary,NA
+Philippines,2000,primary,NA
+Poland,2002,primary,NA
+Portugal,2001,primary,NA
+Puerto Rico,1989,primary,NA
+Romania,2009,primary,NA
+Russia,2002,primary,NA
+Rwanda,2001,primary,NA
+Serbia,2013,primary,NA
+Singapore,2000,primary,NA
+Slovakia,2002,primary,NA
+Slovenia,2002,primary,NA
+South Africa,2008,primary,NA
+Spain,2001,primary,NA
+Sri Lanka,2008,primary,NA
+Sudan,2009,primary,3.1
+Sudan,2009,primary,3.1
+Sudan,2009,primary,10
+Sudan,2009,primary,10
+Suriname,1992,primary,NA
+Sweden,1995,primary,NA
+Switzerland,1998,primary,NA
+Taiwan,1998,primary,NA
+Tajikistan,2004,primary,3.9
+Tanzania,2007,primary,NA
+Thailand,2010,primary,1.8
+Timor-Leste,2007,primary,NA
+Tunisia,2011,primary,4.7
+Turkey,2008,primary,4.8
+Uganda,2008,primary,8.2
+Ukraine,2002,primary,NA
+United Arab Emirates,2006,primary,NA
+United States of America,2000,primary,NA
+Uruguay,1990,primary,NA
+Venezuela,2008,primary,NA
+Vietnam,2014,primary,7.16
+Zambia,1995,primary,NA
+Zimbabwe,1994,primary,NA
+Albania,2004,primary,1.5
+Argentina,2002,primary,10.6
+Belarus,2001,primary,0.025
+Bolivia,1990,primary,19
+Botswana,1994,primary,20
+Brazil,1997,primary,10.8
+Bulgaria,1999,primary,5.3
+Burkina Faso,1994,primary,9.9
+Burundi,2006,primary,11
+Cameroon,1994,primary,5.2
+Chile,1982,primary,27.8
+Dominica,1999,primary,15.1
+Hong Kong,1996,primary,8.6
+India,1999,primary,5.375
+India,1999,primary,5.375
+India,1999,primary,6.6
+India,1999,primary,6.6
+Indonesia,2002,primary,4.5
+Italy,1993,primary,3.88
+Lebanon,2002,primary,5.63
+Mali,2007,primary,11
+Pakistan,2001,primary,3
+Peru,1991,primary,8.1
+Rwanda,2005,primary,15
+Serbia,2004,primary,7.5
+South Africa,2010,primary,6
+St. Lucia,2004,primary,3.5
+Taiwan,1995,primary,-6.35
+Tanzania,2011,primary,8
+Timor-Leste,2004,primary,14.9
+Togo,2011,primary,8
+Venezuela,2002,primary,17
+Austria,1981,primary,NA
+Barbados,1999,primary,NA
+Belgium,1992,primary,NA
+China,2001,primary,NA
+Dominican Republic,2003,primary,NA
+Estonia,2000,primary,NA
+Guyana,1997,primary,NA
+Kyrgyzstan,1997,primary,NA
+Latvia,2002,primary,NA
+Lithuania,2000,primary,NA
+Portugal,1994,primary,NA
+Spain,1994,primary,NA
+Sri Lanka,2000,primary,NA
+Sweden,2001,primary,NA
+Trinidad and Tobago,1997,primary,NA
+Yugoslavia,1996,primary,NA
+Albania,2012,secondary,NA
+Algeria,2001,secondary,NA
+Argentina,2003,secondary,NA
+Australia,2010,secondary,NA
+Austria,2008,secondary,NA
+Azerbaijan,1995,secondary,4.2
+Bangladesh,2006,secondary,NA
+Belarus,2002,secondary,NA
+Belgium,1997,secondary,NA
+Belize,2005,secondary,NA
+Bolivia,2002,secondary,NA
+Bosnia & Herzegovina,2002,secondary,6.4
+Botswana,1995,secondary,NA
+Brazil,2001,secondary,NA
+Bulgaria,2003,secondary,NA
+Burkina Faso,1980,secondary,NA
+Cambodia,2007,secondary,-0.01666666666666668
+Cambodia,2007,secondary,-0.01666666666666668
+Cameroon,1995,secondary,NA
+Canada,2001,secondary,NA
+Chile,2003,secondary,NA
+China,2009,secondary,NA
+Colombia,2014,secondary,NA
+Costa Rica,1992,secondary,NA
+Cote d'Ivoire,1987,secondary,3.2
+Cote d'Ivoire,1987,secondary,22
+Cote d'Ivoire,1987,secondary,3.2
+Cote d'Ivoire,1987,secondary,22
+Cote d'Ivoire,1987,secondary,3.2
+Cote d'Ivoire,1987,secondary,22
+Cote d'Ivoire,1987,secondary,3.2
+Cote d'Ivoire,1987,secondary,22
+Croatia,2001,secondary,NA
+Cyprus,1994,secondary,NA
+Czech Republic,2002,secondary,NA
+Denmark,1997,secondary,NA
+Djibouti,1996,secondary,10.8
+Dominican Republic,1995,secondary,NA
+Ecuador,2002,secondary,6.3
+Egypt,2011,secondary,3
+El Salvador,1992,secondary,NA
+Eritrea,2002,secondary,NA
+Estonia,1994,secondary,NA
+Ethiopia,2011,secondary,12.9
+Finland,1995,secondary,NA
+France,2001,secondary,NA
+Gambia,2003,secondary,NA
+Georgia,2006,secondary,NA
+Germany,2006,secondary,NA
+Ghana,2007,secondary,2.9
+Great Britain,2002,secondary,NA
+Greece,2001,secondary,NA
+Guatemala,2000,secondary,8.6
+Guatemala,2000,secondary,22.5
+Guatemala,2000,secondary,8.6
+Guatemala,2000,secondary,22.5
+Guatemala,2000,secondary,8.6
+Guatemala,2000,secondary,22.5
+Guatemala,2000,secondary,8.6
+Guatemala,2000,secondary,22.5
+Honduras,1991,secondary,NA
+Hong Kong,1981,secondary,NA
+Hungary,2004,secondary,NA
+India,2008,secondary,NA
+Indonesia,2007,secondary,NA
+Iran,2006,secondary,NA
+Iraq,2006,secondary,1.5
+Ireland,1995,secondary,NA
+Israel,2001,secondary,NA
+Italy,2001,secondary,NA
+Jamaica,1989,secondary,NA
+Japan,1995,secondary,NA
+Jordan,2001,secondary,NA
+Kazakhstan,2001,secondary,NA
+Kenya,1995,secondary,12
+Korea,2002,secondary,NA
+Kuwait,2010,secondary,NA
+Kyrgyzstan,1996,secondary,NA
+Latvia,2012,secondary,NA
+Madagascar,1993,secondary,NA
+Malawi,2012,secondary,8.133333333333333
+Malaysia,2004,secondary,NA
+Maldives,2004,secondary,NA
+Malta,2001,secondary,NA
+Mexico,2002,secondary,NA
+Moldova,2003,secondary,NA
+Mongolia,2002,secondary,NA
+Morocco,2001,secondary,NA
+Namibia,2003,secondary,NA
+Nepal,2008,secondary,NA
+Netherlands,2006,secondary,NA
+New Zealand,1995,secondary,NA
+Nicaragua,2001,secondary,9.3
+Niger,2011,secondary,11.4
+Nigeria,2011,secondary,5
+Northern Ireland,1995,secondary,NA
+Norway,1995,secondary,NA
+Pakistan,2009,secondary,NA
+Palestine,2011,secondary,6.5
+Panama,2009,secondary,7.3
+Papua New Guinea,1987,secondary,NA
+Paraguay,1990,secondary,NA
+Peru,2001,secondary,NA
+Philippines,2000,secondary,NA
+Poland,2002,secondary,NA
+Portugal,2001,secondary,NA
+Puerto Rico,1989,secondary,NA
+Romania,2009,secondary,NA
+Russia,2002,secondary,NA
+Rwanda,2001,secondary,NA
+Serbia,2013,secondary,NA
+Singapore,2000,secondary,NA
+Slovakia,2002,secondary,NA
+Slovenia,2002,secondary,NA
+South Africa,2008,secondary,NA
+Spain,2001,secondary,NA
+Sri Lanka,2008,secondary,NA
+Sudan,2009,secondary,13.3
+Sudan,2009,secondary,20
+Sudan,2009,secondary,13.3
+Sudan,2009,secondary,20
+Suriname,1992,secondary,NA
+Sweden,1995,secondary,NA
+Switzerland,1998,secondary,NA
+Taiwan,1998,secondary,NA
+Tajikistan,2004,secondary,3.5
+Tanzania,2007,secondary,NA
+Thailand,2010,secondary,5
+Timor-Leste,2007,secondary,NA
+Tunisia,2011,secondary,1.2
+Turkey,2008,secondary,9.4
+Uganda,2008,secondary,10.1
+Ukraine,2002,secondary,NA
+United Arab Emirates,2006,secondary,NA
+United States of America,2000,secondary,NA
+Uruguay,1990,secondary,NA
+Venezuela,2008,secondary,NA
+Vietnam,2014,secondary,5.033333333333333
+Zambia,1995,secondary,NA
+Zimbabwe,1994,secondary,NA
+Albania,2004,secondary,3.3
+Argentina,2002,secondary,9.2
+Belarus,2001,secondary,0.04285714285714286
+Bolivia,1990,secondary,8
+Botswana,1994,secondary,40
+Brazil,1997,secondary,8.8
+Bulgaria,1999,secondary,4.9
+Burkina Faso,1994,secondary,16.4
+Burundi,2006,secondary,18
+Cameroon,1994,secondary,26.3
+Chile,1982,secondary,11.2
+Dominica,1999,secondary,10.98
+Hong Kong,1996,secondary,13.900000000000002
+India,1999,secondary,3.14
+India,1999,secondary,10.2
+India,1999,secondary,3.14
+India,1999,secondary,10.2
+Indonesia,2002,secondary,20.8
+Italy,1993,secondary,10.533333333333333
+Lebanon,2002,secondary,2.56
+Mali,2007,secondary,40
+Pakistan,2001,secondary,10.479999999999999
+Peru,1991,secondary,7
+Rwanda,2005,secondary,45
+Serbia,2004,secondary,5.6
+South Africa,2010,secondary,23
+St. Lucia,2004,secondary,7.3
+Taiwan,1995,secondary,3.483333333333333
+Tanzania,2011,secondary,66
+Timor-Leste,2004,secondary,7.5
+Togo,2011,secondary,13
+Venezuela,2002,secondary,19
+Austria,1981,secondary,11.3
+Barbados,1999,secondary,4.8
+Belgium,1992,secondary,2
+China,2001,secondary,7.133333333333333
+Dominican Republic,2003,secondary,7
+Estonia,2000,secondary,1.575
+Guyana,1997,secondary,4
+Kyrgyzstan,1997,secondary,6.500000000000001
+Latvia,2002,secondary,1.3666666666666665
+Lithuania,2000,secondary,1.125
+Portugal,1994,secondary,5.05
+Spain,1994,secondary,3.6
+Sri Lanka,2000,secondary,2.4
+Sweden,2001,secondary,5
+Trinidad and Tobago,1997,secondary,6
+Yugoslavia,1996,secondary,10.5
