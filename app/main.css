@@ -2,22 +2,45 @@ body {
   align-items: center;
   justify-content: center; }
 
+.container {
+  margin-top: 50px; }
+
+.row {
+  margin-top: 25px; }
+
 h1.title {
-  font-size: 20px; }
+  font-size: 22px;
+  font-family: "Avenir Next"; }
 
 svg {
   flex-direction: row;
   align-items: center;
   justify-content: center; }
 
+h2 {
+  font-size: 16px;
+  font-family: "Avenir Next"; }
+
 .text {
   font-family: "Avenir Next";
-  font-size: 12px; }
+  font-size: 16px;
+  color: black; }
+
+p {
+  font-family: "Avenir Next";
+  font-size: 14px;
+  line-height: 27px;
+  letter-spacing: 1.2px; }
 
 .title {
   font-weight: bold;
   font-size: 16px;
-  justify-content: center; }
+  justify-content: center;
+  color: black; }
+
+.label {
+  font-family: "Avenir Next";
+  font-size: 12px; }
 
 .subtitle {
   font-style: italic;
@@ -26,5 +49,22 @@ svg {
 .source {
   font-size: 8px; }
 
+.bar {
+  fill: #c7bbc9; }
+
 .dot {
-  fill: #6fcb9f; }
+  fill: #bfb5b2;
+  opacity: .45; }
+
+.selected-dot {
+  fill: orange !important; }
+
+.line {
+  fill: none;
+  stroke: teal;
+  stroke-width: 0.5; }
+
+.lollipop {
+  fill: none;
+  stroke: teal;
+  stroke-width: 0.5; }

@@ -50,23 +50,24 @@ function createBenchmark(data, xVar, yVar){
   // Define X Scale
   const xScale = d3.scaleLinear()
     //.base(Math.E)
-    .domain([0, xMax])
+    .domain([4, xMax])
     .range([padding, width - padding])
     .nice();
 
   // // Define Y Scale
-  const yScale = d3.scaleLinear()
-    .domain([0, yMax])
-    .range([height - padding, padding])
-    .nice();
-
-  // ATTEMPT TO DEFINE DYNAMIC SCALE
   // const yScale = d3.scaleLinear()
-  //   .domain([function(d) {
-  //   if (yVar==='score') {return 200}
-  //   else {return 0};}, yMax])
+  //   .domain([0, yMax])
   //   .range([height - padding, padding])
   //   .nice();
+
+  // TERNARY SAME AS IF-ELSE STATEMENT
+  const yMin = (yVar === 'score') ? 200 : 0;
+
+  // ATTEMPT TO DEFINE DYNAMIC SCALE
+  const yScale = d3.scaleLinear()
+    .domain([yMin, yMax])
+    .range([height - padding, padding])
+    .nice();
 
   // Map scales to axes
   const xAxis = d3.axisBottom(xScale)
@@ -76,28 +77,31 @@ function createBenchmark(data, xVar, yVar){
 
 
   // // Define event handler mouseover
-  // const mouseOverIn = function (d, i) {
-  //   d3.select(this)
-  //     .attr('r', 8)
-  //   // Specify where to put country label
-  //   svg.append('text')
-  //   .attr('class', 'text')
-  //   .attr('x', 250)
-  //   .attr('y', 250)
-  //   .text(function () {
-  //     return d.country;
-  //   });
-  // }
+  function mouseOverIn (d) {
+    d3.select(this)
+      // .attr('r', 10)
+      .style('fill', 'steelblue');
 
-  // const mouseOverOut = function (d, i) {
-  //   d3.select(this)
-  //     .attr('r', 5);
-  //   d3.select(d.country)
-  //     .remove();
-  // }
+    // Specify where to put country label
+    svg.append('text')
+    .attr('class', 'label')
+    .attr('x', xScale(d[xVar]) - 10)
+    .attr('y', yScale(d[yVar]) - 15)
+    .text(function () {
+      return d.country;
+    });
+  }
+
+  function mouseOverOut(d) {
+    d3.select(this)
+      // .attr('r', 5)
+      .style('fill', '#bfb5b2');
+    d3.select('.label')
+      .remove();
+  }
 
   // Define svg
-  const svg = d3.select("body")
+  const svg = d3.select(".benchmark-container")
     .append("svg")
     .attr("class", yVar)
     .attr("height", height)
@@ -116,19 +120,8 @@ function createBenchmark(data, xVar, yVar){
       })
       .attr("r", 5)
       .attr('class', 'dot')
-      .on('mouseover', function(d) {
-        d3.select(this)
-          .style('opacity', .5)
-          .text(function(country) {
-            return d.country;
-          })
-        })
-      .on('mouseout', function(d) {
-        d3.select(this)
-          .style('opacity', 1)
-        });
-      // .on('mouseover', mouseOverIn)
-      // .on('mouseout', mouseOverOut);
+      .on('mouseover', mouseOverIn)
+      .on('mouseout', mouseOverOut);
 
 
   // Group together elements of axes
@@ -229,7 +222,7 @@ function createBar(data) {
   const xAxisBar = d3.axisBottom(xScaleBar).tickFormat(d3.timeFormat("%Y"));
 
   // Define svg
-  const svgbar = d3.select('body')
+  const svgbar = d3.select('.barchart-container')
     .append('svg')
     .attr('class', 'bar')
     .attr("height", height)
@@ -302,63 +295,61 @@ function createBar(data) {
     .style('text-anchor', 'middle')
     .text('Returns to Schooling: ' + selectedCountry[0].country);
   
-
-
-  // // Define max
-  // const yMax = (() => {
-  //   if(d.year===year) {
-  //   return d3.max(data, (d) => {
-  //     return d[yVarBar]}
-  //   )}})();
-
-  // Define max - Filter then find max?
-  // const yMax = data.filter(d => d.year === year).then(d => d3.max(data, (d) => {
-  //   return d[yVarBar]
-  //   }));
 }
 
-// Reference: https://www.d3-graph-gallery.com/graph/lollipop_horizontal.html
+// Inspiration: https://www.d3-graph-gallery.com/graph/lollipop_horizontal.html
+// https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 function createLollipopChart(data) {
   // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 40, left: 100},
+  const margin = {top: 10, right: 30, bottom: 40, left: 100},
       width = 460 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
+  d3.selectAll('svg.lollipop').remove();
+
   // append the svg object to the body of the page
-  var svg = d3.select(".lollipop-container")
+  const svg = d3.select(".lollipop-container")
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr('class', 'lollipop')
     .append("g")
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    // Add X axis
-    var x = d3.scaleLinear()
-      .domain([0, 20])
-      .range([ 0, width]);
+  // X Max
+  const xMaxLollipop = d3.max(data, (d) => {
+    return d.value;
+  });
 
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
-      .selectAll("text")
-        .attr("transform", "translate(-10,0)rotate(-45)")
-        .style("text-anchor", "end");
+  // X axis
+  const x = d3.scaleLinear()
+    // .domain([0, 20])
+    .domain([0, xMaxLollipop + 5])
+    .range([ 0, width]);
+
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
 
   // Y axis
-  var y = d3.scaleBand()
+  const y = d3.scaleBand()
     .range([ 0, height ])
     .domain(data.map(function(d) { return d.type; }))
     .padding(1);
+
   svg.append("g")
     .call(d3.axisLeft(y));
 
-
   // Lines
-  svg.selectAll("path")
+  svg.selectAll(".line")
     .data(data)
     .enter()
     .append("line")
+      .attr('class', 'line')
       .attr("x1", function(d) { return x(d.value); })
       .attr("x2", x(0))
       .attr("y1", function(d) { return y(d.type); })
@@ -376,12 +367,24 @@ function createLollipopChart(data) {
       .style("fill", "#69b3a2")
       .attr("stroke", "black");
 
+}
 
+function updateBenchmark(country) {
+  d3.selectAll('.dot')
+    .classed('selected-dot', data => {
+      if (data.country === country) {
+        return true;
+      } else {
+        return false;
+      }
+    });
 
+  d3.select('.selected-dot')
+    .attr('r', 8);
 }
 
 function createDropdown(list){
-  console.log(list);
+  // console.log(list);
 // Reference for how to remove duplicate items from array:
 // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
   const countries = list[0].map(l => l.country);
@@ -405,6 +408,13 @@ function createDropdown(list){
 
         const filteredCross = list[1].filter(data => data.country === country && data.value)
                                         .sort((a, b) => a.year - b.year);
+
+        
+
+        const filteredSelectionDot = list[2].filter(data => data.country === country)
+        console.log(filteredCross);
+
+        updateBenchmark(country);
 
         createLollipopChart(filteredCross);
 
@@ -459,7 +469,7 @@ function myVis(d) {
     };
   });
 
-  const inputArray = [returnsData, returnsCrossData];
+  const inputArray = [returnsData, returnsCrossData, quantityData];
 
   // const returnsPrimData = d[3].map(data => {
   //   return {
