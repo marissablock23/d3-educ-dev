@@ -478,6 +478,7 @@ function myVis(d) {
       country: data.country,
       value: +data.value,
       type: data.type,
+      source: data.source,
       year: parseDate(data.year)
     };
   });
