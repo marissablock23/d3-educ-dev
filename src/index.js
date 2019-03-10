@@ -3,7 +3,7 @@
 // (I tend to think it's best to use screaming snake case for imported json)
 const domReady = require('domready');
 const d3 = Object.assign({}, require("d3-selection"), require("d3-scale"), require("d3-shape"), 
-  require("d3-array"), require("d3-axis"), require("d3-fetch"), require("d3-time-format"));
+  require("d3-array"), require("d3-axis"), require("d3-fetch"), require("d3-time-format"), require("d3-transition"));
 
 
 domReady(() => {
@@ -112,17 +112,12 @@ function createBenchmark(data, xVar, yVar){
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", d => {
-        return xScale(d[xVar]);
-      })
-      .attr("cy", d => {
-        return yScale(d[yVar]);
-      })
-      .attr("r", 5)
-      .attr('class', 'dot')
-      .on('mouseover', mouseOverIn)
-      .on('mouseout', mouseOverOut);
-
+    .attr('cx', 0)
+    .attr("cy", d => {
+      return yScale(d[yVar]);
+    })
+    .attr('r', 1)
+    .attr('class', 'dot')
 
   // Group together elements of axes
   svg.append("g")
@@ -173,6 +168,24 @@ function createBenchmark(data, xVar, yVar){
         return 'Benchmarking the Quantity of Schooling'} 
       else {
         return 'Benchmarking the Quality of Schooling'};})
+
+  svg.selectAll('.dot')
+    .data(data)
+    .transition()
+    .duration(1500)
+    .attr("cx", d => {
+      return xScale(d[xVar]);
+    })
+    .attr("cy", d => {
+      return yScale(d[yVar]);
+    })
+    .attr("r", 5)
+    .attr('class', 'dot')
+
+
+  svg.selectAll('circle')
+    .on('mouseover', mouseOverIn)
+    .on('mouseout', mouseOverOut);
 }
 
 function createBar(data) {
