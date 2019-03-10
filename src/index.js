@@ -34,6 +34,7 @@ domReady(() => {
 });
 
 function createBenchmark(data, xVar, yVar){
+  console.log(data);
   const width = 500;
   const height = 500;
   const padding = 50;
@@ -76,7 +77,7 @@ function createBenchmark(data, xVar, yVar){
   const yAxis = d3.axisLeft(yScale);
 
 
-  // // Define event handler mouseover
+  // Define event handler mouseover
   function mouseOverIn (d) {
     d3.select(this)
       // .attr('r', 10)
@@ -167,7 +168,17 @@ function createBenchmark(data, xVar, yVar){
       if (yVar==='yrs') {
         return 'Benchmarking the Quantity of Schooling'} 
       else {
-        return 'Benchmarking the Quality of Schooling'};})
+        return 'Benchmarking the Quality of Schooling'};
+    });
+
+  // Note if country does not have data
+  // should only display if above is true
+  svg.append('text')
+    .attr('class', yVar + '-note')
+    .attr('y', padding - 25)
+    .attr('x', (width/2))
+    .style('text-anchor', 'middle')
+    .text('*Data not available for selected country')
 
   svg.selectAll('.dot')
     .data(data)
@@ -244,7 +255,7 @@ function createBar(data) {
   // const barWidth = (width - padding) / (xMaxBar - xMinBar);
 
   // Map data to bars + use scales to map to variables
-    const bars = svgbar.selectAll("rect")
+  const bars = svgbar.selectAll("rect")
     .data(selectedCountry)
     .enter()
     .append('rect')
@@ -357,6 +368,41 @@ function createLollipopChart(data) {
   svg.append("g")
     .call(d3.axisLeft(y));
 
+  // Define event handler mouseover
+  function mouseOverIn (d) {
+    d3.select(this)
+      // .attr('r', 10)
+      .style('fill', 'steelblue');
+
+    // Specify where to put country label
+    svg.append('text')
+    .attr('class', 'label')
+    .attr('x', x(d.value) - 70)
+    .attr('y', y(d.type) - 15)
+    .text(function () {
+      return "Source: " + d.source;
+    });
+
+    svg.append('text')
+      .attr('class', 'sourcelabel')
+      .attr('x', x(d.value) - 70)
+      .attr('y', y(d.type) - 25)
+      .text(function () {
+        return "Year: " + new Date(d.year).getFullYear();
+    });
+  }
+
+  function mouseOverOut(d) {
+    d3.select(this)
+      // .attr('r', 5)
+      .style('fill', '#bfb5b2');
+    d3.select('.label')
+      .remove();
+    d3.select('.sourcelabel')
+      .remove();
+  }
+
+
   // Lines
   svg.selectAll(".line")
     .data(data)
@@ -378,13 +424,18 @@ function createLollipopChart(data) {
       .attr("cy", function(d) { return y(d.type); })
       .attr("r", "4")
       .style("fill", "#69b3a2")
-      .attr("stroke", "black");
+      .attr("stroke", "black")
+      .on('mouseover', mouseOverIn)
+      .on('mouseout', mouseOverOut);
 
 }
 
 function updateBenchmark(country) {
+
+  d3.selectAll('.selected-dot').remove();
+
   d3.selectAll('.dot')
-    .classed('selected-dot', data => {
+    .classed('selected-dot', (data) => {
       if (data.country === country) {
         return true;
       } else {
@@ -392,8 +443,50 @@ function updateBenchmark(country) {
       }
     });
 
-  d3.select('.selected-dot')
-    .attr('r', 8);
+  d3.selectAll('.selected-dot')
+    .attr('r', 8)
+    .style('opacity', 1);
+
+  const selected = d3.selectAll('.selected-dot').data();
+  console.log(selected);
+
+  // INITIALIZE AN EMPTY OBJECT WITH PROPERTIES 'YRS' AND 'SCORE', SET THEM TO FALSE, 
+  // SO THAT WHEN WE LOOP OVER THE CONST 'SELECTED', WE SET THE PROPERTIES OF 'YRS' 
+  // AND 'SCORE' TO TRUE OR FALSE SO THAT WE KNOW WHICH SCATTER PLOT TO DISPLAY THE 'NOTE-VISIBLE' CLASS
+  let availableData = {
+      yrs: false,
+      score: false
+  };
+     
+  selected.forEach(data => {
+    if(data.yrs){
+      availableData.yrs = true;
+    }
+
+    if(data.score){
+      availableData.score = true;
+    }
+
+  });
+
+  // If yrs does not exist, display note-visible class for yrs-note class
+  if(availableData.yrs === false){
+    d3.select('.yrs-note')
+      .classed('note-visible', true);
+  } else {
+    d3.select('.yrs-note')
+      .classed('note-visible', false);
+  }
+
+  // If score does not exist, display note-visible class for score-note class
+  if(availableData.score === false){
+    d3.select('.score-note')
+      .classed('note-visible', true);
+  } else {
+    d3.select('.score-note')
+      .classed('note-visible', false);
+  }
+
 }
 
 function createDropdown(list){
@@ -411,7 +504,7 @@ function createDropdown(list){
     .enter()
     .append('a')
       .attr('class', 'dropdown-item')
-      .attr('href', '#')
+      // .attr('href', '#')
       .append('text')
       .text(country => country)
       .on('click', (country) => {
@@ -422,10 +515,9 @@ function createDropdown(list){
         const filteredCross = list[1].filter(data => data.country === country && data.value)
                                         .sort((a, b) => a.year - b.year);
 
+        // const filteredSelectionDotQuantity = list[2].filter(data => data.country === country)
         
-
-        const filteredSelectionDot = list[2].filter(data => data.country === country)
-        console.log(filteredCross);
+        // const filteredSelectionDotQuality = list[3].filter(data => data.country === country)
 
         updateBenchmark(country);
 
@@ -483,7 +575,7 @@ function myVis(d) {
     };
   });
 
-  const inputArray = [returnsData, returnsCrossData, quantityData];
+  const inputArray = [returnsData, returnsCrossData];
 
   // const returnsPrimData = d[3].map(data => {
   //   return {

@@ -32,13 +32,19 @@ p {
   line-height: 27px;
   letter-spacing: 1.2px; }
 
+.score-note, .yrs-note {
+  display: none; }
+
+.note-visible {
+  display: block !important; }
+
 .title {
   font-weight: bold;
   font-size: 16px;
   justify-content: center;
   color: black; }
 
-.label {
+.label, .sourcelabel {
   font-family: "Avenir Next";
   font-size: 12px; }
 
@@ -60,11 +66,6 @@ p {
   fill: orange !important; }
 
 .line {
-  fill: none;
-  stroke: teal;
-  stroke-width: 0.5; }
-
-.lollipop {
   fill: none;
   stroke: teal;
   stroke-width: 0.5; }
