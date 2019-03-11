@@ -17,8 +17,8 @@ svg {
   align-items: center;
   justify-content: center; }
 
-h2 {
-  font-size: 16px;
+h2.subtitle {
+  font-size: 18px;
   font-family: "Avenir Next"; }
 
 .text {
@@ -26,21 +26,22 @@ h2 {
   font-size: 16px;
   color: black; }
 
-p {
+p, ol, li {
   font-family: "Avenir Next";
   font-size: 14px;
   line-height: 27px;
-  letter-spacing: 1.2px; }
+  letter-spacing: 1.1px; }
 
 .score-note, .yrs-note {
   display: none; }
 
 .note-visible {
-  display: block !important; }
+  display: block !important;
+  fill: firebrick; }
 
 .title {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   justify-content: center;
   color: black; }
 

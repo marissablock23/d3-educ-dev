@@ -56,9 +56,9 @@ function createBenchmark(data, xVar, yVar){
     .nice();
 
   // TERNARY SAME AS IF-ELSE STATEMENT
-  const yMin = (yVar === 'score') ? 200 : 0;
+  const yMin = (yVar === 'score') ? 250 : 0;
 
-  // ATTEMPT TO DEFINE DYNAMIC SCALE
+  // Define Y Scale
   const yScale = d3.scaleLinear()
     .domain([yMin, yMax])
     .range([height, 0])
@@ -172,8 +172,8 @@ function createBenchmark(data, xVar, yVar){
   // should only display if above is true
   svg.append('text')
     .attr('class', yVar + '-note')
-    .attr('y', height - 25)
-    .attr('x', width)
+    .attr('y', margin.top/2)
+    .attr('x', width/2)
     .style('text-anchor', 'middle')
     .text('*Data not available for selected country')
 
@@ -502,8 +502,6 @@ function createDropdown(list){
     .append('a')
       .attr('class', 'dropdown-item')
       // .attr('href', '#')
-      .append('text')
-      .text(country => country)
       .on('click', (country) => {
         const filteredSelection = list[0].filter(data => data.country === country && data.overall)
                                         .sort((a, b) => a.year - b.year);
@@ -523,7 +521,9 @@ function createDropdown(list){
         // const filteredOverall = filteredSelection.filter(data => data.overall)
         //                                           .sort((a, b) => a.year - b.year);
         // const workingData = [filteredOverall, filteredSelection];
-      });
+      })
+      .append('text')
+      .text(country => country);
 
 
 }
