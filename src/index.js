@@ -34,10 +34,10 @@ domReady(() => {
 });
 
 function createBenchmark(data, xVar, yVar){
-  console.log(data);
-  const width = 500;
-  const height = 500;
-  const padding = 50;
+  const margin = {top: 50, right: 50, bottom: 50, left: 50},
+  width = 600 - margin.left - margin.right,
+  height = 600 - margin.top - margin.bottom;
+  // const padding = 50;
 
   // Define max
   const xMax = d3.max(data, (d) => {
@@ -52,14 +52,8 @@ function createBenchmark(data, xVar, yVar){
   const xScale = d3.scaleLinear()
     //.base(Math.E)
     .domain([4, xMax])
-    .range([padding, width - padding])
+    .range([0, width])
     .nice();
-
-  // // Define Y Scale
-  // const yScale = d3.scaleLinear()
-  //   .domain([0, yMax])
-  //   .range([height - padding, padding])
-  //   .nice();
 
   // TERNARY SAME AS IF-ELSE STATEMENT
   const yMin = (yVar === 'score') ? 200 : 0;
@@ -67,7 +61,7 @@ function createBenchmark(data, xVar, yVar){
   // ATTEMPT TO DEFINE DYNAMIC SCALE
   const yScale = d3.scaleLinear()
     .domain([yMin, yMax])
-    .range([height - padding, padding])
+    .range([height, 0])
     .nice();
 
   // Map scales to axes
@@ -105,8 +99,10 @@ function createBenchmark(data, xVar, yVar){
   const svg = d3.select(".benchmark-container")
     .append("svg")
     .attr("class", yVar)
-    .attr("height", height)
-    .attr("width", width);
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width + margin.left + margin.right)
+    .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
   // Map data to circles + use scales to map to variables
   const circles = svg.selectAll("circle")
@@ -122,18 +118,19 @@ function createBenchmark(data, xVar, yVar){
 
   // Group together elements of axes
   svg.append("g")
-    .attr("transform", "translate(0," + (height - (padding+10)) + ")")
-    .call(xAxis);
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
 
   svg.append("g")
-    .attr("transform", "translate(" + padding + "," + (padding-60)  + ")")
+    // .attr("transform", "translate(" + margin.left + "," + (margin.top-60)  + ")")
     .call(yAxis);
+
 
   // x Axis Title - Same for both
   svg.append('text')
     .attr('class', 'text')
-    .attr('y', height - (padding/2))
-    .attr('x', (width/2))
+    .attr('y', height + 35)
+    .attr('x', width/2)
     .style('text-anchor', 'middle')
     .text('GDP per capita, (constant 2010 US$), 2017');
 
@@ -141,8 +138,8 @@ function createBenchmark(data, xVar, yVar){
   svg.append('text')
     .attr('class', 'text')
     .attr('transform', 'rotate(-90)')
-    .attr('y', padding - 40)
-    .attr('x', -(height/2))
+    .attr('y', -margin.left + 15)
+    .attr('x', -height/2)
     .style('text-anchor', 'middle')
     .text(function(title) {
       if (yVar==='yrs') {
@@ -153,16 +150,16 @@ function createBenchmark(data, xVar, yVar){
   // Source
   svg.append('text')
     .attr('class', 'text source')
-    .attr('y', height)
-    .attr('x', width/2)
+    .attr('y', height + 50)
+    .attr('x', 0)
     .style('text-anchor', 'right')
     .text('Source: World Development Indicators, World Bank Education Statistics')
 
   // Title - Differs
   svg.append('text')
     .attr('class', 'text title')
-    .attr('y', padding)
-    .attr('x', (width/2))
+    .attr('y', 0)
+    .attr('x', width/2)
     .style('text-anchor', 'middle')
     .text(function(title) {
       if (yVar==='yrs') {
@@ -175,8 +172,8 @@ function createBenchmark(data, xVar, yVar){
   // should only display if above is true
   svg.append('text')
     .attr('class', yVar + '-note')
-    .attr('y', padding - 25)
-    .attr('x', (width/2))
+    .attr('y', height - 25)
+    .attr('x', width)
     .style('text-anchor', 'middle')
     .text('*Data not available for selected country')
 
