@@ -329,7 +329,7 @@ function createBar(data) {
 // https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 function createLollipopChart(data) {
   // set the dimensions and margins of the graph
-  const margin = {top: 60, right: 30, bottom: 40, left: 60},
+  const margin = {top: 60, right: 30, bottom: 40, left: 90},
       width = 600 - margin.left - margin.right,
       height = 600 - margin.top - margin.bottom;
 
