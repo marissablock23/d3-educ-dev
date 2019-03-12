@@ -29,6 +29,11 @@ h2.subtitle {
 	font-family: "Avenir Next";
 }
 
+h3 {
+	font-size: 16px;
+	font-family: "Avenir Next";
+}
+
 .text {
 	font-family: "Avenir Next";
 	font-size: 16px;
@@ -75,7 +80,7 @@ p, ol, li {
 
 
 .bar {
-	fill: #c7bbc9;
+	fill: #69b3a2;
 }
 
 .dot {
@@ -84,7 +89,7 @@ p, ol, li {
 }
 
 .selected-dot{
-	fill: orange !important;
+	fill: #69b3a2 !important;
 }
 
 .line {
