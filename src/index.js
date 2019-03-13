@@ -256,8 +256,6 @@ function createBar(data) {
     .attr("height", height)
     .attr("width", width);
 
-  // const barWidth = (width - padding) / (xMaxBar - xMinBar);
-
   // Map data to bars + use scales to map to variables
   const bars = svgbar.selectAll("rect")
     .data(selectedCountry)
@@ -268,12 +266,23 @@ function createBar(data) {
       return xScaleBar(d.year) + padding;
       })
     .attr("y", (d) => {
-      return yScaleBar(d.overall);
+      return yScaleBar(0);
       })
     .attr("width", xScaleBar.bandwidth())
     .attr("height", (d) => {
-      return yScaleBar(0) - yScaleBar(d.overall);
+      return yScaleBar(0) - yScaleBar(0);
     });
+
+  svgbar.selectAll('rect')
+    .transition()
+    .duration(2500)
+    .attr("y", (d) => {
+      return yScaleBar(d.overall);
+    })
+    .attr("height", (d) => {
+      return yScaleBar(0) - yScaleBar(d.overall);
+    })
+
 
   // g groups together all elements of axis - ticks, values, etc.
   svgbar.append("g")
@@ -406,7 +415,7 @@ function createLollipopChart(data) {
       .remove();
   }
 
-  // TRANSITION ATTEMPT
+  // TRANSITION
   svg.selectAll(".line")
     .data(data)
     .enter()
@@ -441,33 +450,6 @@ function createLollipopChart(data) {
       .transition()
       .duration(3000)
       .attr("x1", function(d) { return x(d.value); });
-
-  //////////////////////////////
-
-  // Lines
-  // svg.selectAll(".line")
-  //   .data(data)
-  //   .enter()
-  //   .append("line")
-  //     .attr('class', 'line')
-  //     .attr("x1", function(d) { return x(d.value); })
-  //     .attr("x2", x(0))
-  //     .attr("y1", function(d) { return y(d.type); })
-  //     .attr("y2", function(d) { return y(d.type); })
-  //     .attr("stroke", "grey");
-
-  // // Circles
-  // svg.selectAll("circle")
-  //   .data(data)
-  //   .enter()
-  //   .append("circle")
-  //     .attr("cx", function(d) { return x(d.value); })
-  //     .attr("cy", function(d) { return y(d.type); })
-  //     .attr("r", "4")
-  //     .style("fill", "#69b3a2")
-  //     .attr("stroke", "black")
-  //     .on('mouseover', mouseOverIn)
-  //     .on('mouseout', mouseOverOut);
 
   // Title
   svg.append('text')
@@ -656,7 +638,7 @@ function myVis(d) {
 
   createDropdown(inputArray);
   // createDropdown(returnsPrimData, 'primary');
-
+}
 
 // Legend
 // First, add rectangles, then add text labels
@@ -730,7 +712,7 @@ function myVis(d) {
 //     .text("Sub-Saharan Africa");
 
 
-}
+
 
 
 //////////////////////////////
