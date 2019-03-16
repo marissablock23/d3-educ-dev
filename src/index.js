@@ -457,7 +457,7 @@ function createLollipopChart(data) {
     .attr('y', 0)
     .attr('x', width/2)
     .style('text-anchor', 'middle')
-    .text('Disaggregated Returns to Schooling, most recent year');
+    .text('Disaggregated Returns to Schooling, most recent year:' + selectedCountry[0].country);
 
   // x Axis Title
   svg.append('text')
@@ -540,43 +540,40 @@ function createDropdown(list){
   // console.log(list);
 // Reference for how to remove duplicate items from array:
 // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
-  const countries = list[0].map(l => l.country);
+  const countries = [ list[2].map(l => l.country), list[3].map(l => l.country) ].flat();
+
   const uniqueCountries = countries.filter(function(country, index, arr) {
     return arr.indexOf(country) === index;
   });
 
   d3.select('#countryDD')
-    .selectAll('a')
+    .selectAll('option')
     .data(uniqueCountries)
-    .enter()
-    .append('a')
-      .attr('class', 'dropdown-item')
-      // .attr('href', '#')
-      .on('click', (country) => {
-        const filteredSelection = list[0].filter(data => data.country === country && data.overall)
-                                        .sort((a, b) => a.year - b.year);
-        createBar(filteredSelection);
+    // .enter()
+    .join('option')
+      // .on('submit', (country) => {
+      //   console.log('asdf');
+      //   const filteredSelection = list[0].filter(data => data.country === country && data.overall)
+      //                                   .sort((a, b) => a.year - b.year);
+      //   console.log(filteredSelection);
+      //   createBar(filteredSelection);
 
-        const filteredCross = list[1].filter(data => data.country === country && data.value)
-                                        .sort((a, b) => a.year - b.year);
+      //   const filteredCross = list[1].filter(data => data.country === country && data.value)
+      //                                   .sort((a, b) => a.year - b.year);
 
-        // const filteredSelectionDotQuantity = list[2].filter(data => data.country === country)
-        
-        // const filteredSelectionDotQuality = list[3].filter(data => data.country === country)
+      //   updateBenchmark(country);
 
-        updateBenchmark(country);
+      //   createLollipopChart(filteredCross);
+      // })
+      .attr('value', d => d);
 
-        createLollipopChart(filteredCross);
-
-        // const filteredOverall = filteredSelection.filter(data => data.overall)
-        //                                           .sort((a, b) => a.year - b.year);
-        // const workingData = [filteredOverall, filteredSelection];
-      })
-      .append('text')
-      .text(country => country);
-
-
+      d3.select('#searchForm')
+        .on('submit', function() {
+          alert('marissa!!');
+        });
 }
+
+
 
 
 function myVis(d) {
@@ -622,7 +619,7 @@ function myVis(d) {
     };
   });
 
-  const inputArray = [returnsData, returnsCrossData];
+  const inputArray = [returnsData, returnsCrossData, quantityData, qualityData];
 
   // const returnsPrimData = d[3].map(data => {
   //   return {

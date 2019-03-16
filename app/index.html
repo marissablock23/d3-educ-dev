@@ -32,10 +32,15 @@
     </p>
 
     <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Select Country
-      </button>
-      <div class="dropdown-menu" id="countryDD" aria-labelledby="dropdownMenuButton"></div>
+      </button> -->
+      <!-- <div class="dropdown-menu"> -->
+      <form id="searchForm" autocomplete="on" onSubmit="return false;">
+        <input type="text" list="countryDD" autocomplete="on" placeholder="Select a country">
+        <datalist id="countryDD"></datalist>
+      </form>
+      <!-- </div> -->
     </div>
 
     <div class="row">
@@ -51,10 +56,15 @@
         <br><br><br><br>
 
         <h2 class = "text subtitle"> Test 1: Are returns to schooling high? </h2>
-        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+        <p> If education is supply constrained relative to demand, we might expect to see a high returns to schooling. Depending on the country of interest, we may think of supply in a number of ways: number of secondary school graduates or number of graduates with technical degrees. </p>
 
-         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-
+        <p> In a recent review of the literature on returns to schooling, <a href="http://documents.worldbank.org/curated/en/442521523465644318/pdf/WPS8402.pdf"> Psacharopoulos and Patrinos (2018)</a> highlight the latest trends and patterns. The following should be kept in mind, when analyzing your country of interest: </p>
+        <ul>
+          <li> The private average global rate of return to one extra year of schooling is 9 percent. This value is very stable over decades. </li>
+          <li> Private returns to higher education have increased over time. </li>
+          <li> Women experience higher average returns. </li>
+          <li> Returns to schooling are generally higher in low-income countries. </li>
+        </ul>
           <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
 
       </div>
