@@ -24,7 +24,7 @@ domReady(() => {
 });
 
 function createBenchmark(data, xVar, yVar, addedParams){
-  d3.select('.checkbox')
+  d3.selectAll('.checkbox')
     .style('opacity', '.4');
   document.getElementById('regional').disabled = true;
 
@@ -193,10 +193,100 @@ function createBenchmark(data, xVar, yVar, addedParams){
     .on('mouseover', mouseOverIn)
     .on('mouseout', mouseOverOut);
 
+  let regionChecked = false;
+  let incomeChecked = false;
+
+  d3.select('#regional')
+    .on('change', () => {
+      regionChecked = !regionChecked;
+      if(regionChecked) {
+        addComparators(addedParams, 'region', regionChecked, incomeChecked)
+      } else {
+        removeComparators('region', regionChecked, incomeChecked);
+      }
+    });
+
+  d3.select('#incgrp')
+    .on('change', () => {
+      incomeChecked = !incomeChecked;
+      if(incomeChecked) {
+        addComparators(addedParams, 'incgrp', regionChecked, incomeChecked);
+      } else {
+        removeComparators('incgrp', regionChecked, incomeChecked);
+      }
+    });
+
 }
 
-function createBar(data) {
+function addComparators(data, type, regionChecked, incomeChecked) {
   console.log(data);
+
+  const selectedCountry = d3.selectAll('.selected-dot').data();
+  const countryName = selectedCountry[0].country;
+  const selectedIncgrp = (selectedCountry[0] && selectedCountry[0]['incgrp']) ? selectedCountry[0]['incgrp'] : null;
+  const selectedRegion = (selectedCountry[0] && selectedCountry[0]['region']) ? selectedCountry[0]['region'] : null;
+
+  let filteredYrs;
+  let filteredScore;
+
+  selectedCountry.forEach(selected => {
+
+    if(type === 'region' && incomeChecked === true){
+      if(selected.yrs){
+        filteredYrs = data[2].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      }
+      if(selected.score) {
+        filteredScore = data[3].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      } 
+    } else if(type === 'region' && incomeChecked === false){
+      if(selected.yrs){
+        filteredYrs = data[2].filter(d => (d.region === selectedRegion) && d.country !== countryName);
+      } else if(selected.score) {
+        filteredScore = data[3].filter(d => (d.region === selectedRegion) && d.country !== countryName);
+      } else {
+        return;
+      }
+    }
+
+    if(type === 'incgrp' && regionChecked === true){
+      if (selected.yrs) {
+        filteredYrs = data[2].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      } 
+      
+      if(selected.score) {
+        filteredScore = data[3].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      } 
+    } else if(type === 'incgrp' && regionChecked === false){
+      if (selected.yrs) {
+        filteredYrs = data[2].filter(d => (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      }
+
+      if(selected.score) {
+        filteredScore = data[3].filter(d => (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      }
+    }
+
+  });
+  
+  console.log(filteredYrs);
+  console.log(filteredScore);
+
+  const selectedType = d3.selectAll('.selected-dot').data()[0][type];
+  console.log(selectedType);
+
+  // const filteredYrs = data[2].filter(d => d.region === selectedType);
+  // console.log(filteredYrs);
+  // const filteredScore = data[3].filter(d => d.region === selectedType);
+  // console.log(filteredScore);
+}
+
+// function removeComparators
+
+function createBar(data) {
+
+  if(data.length < 1){
+    return;
+  }
 
   const width = 700;
   const height = 500;
@@ -329,6 +419,10 @@ function createBar(data) {
 // Inspiration: https://www.d3-graph-gallery.com/graph/lollipop_horizontal.html
 // https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 function createLollipopChart(data) {
+  if(data.length < 1){
+    return;
+  }
+
   // set the dimensions and margins of the graph
   const margin = {top: 60, right: 30, bottom: 40, left: 90},
       width = 600 - margin.left - margin.right,
@@ -468,7 +562,7 @@ function createLollipopChart(data) {
 }
 
 function updateBenchmark(country) {
-  d3.select('.checkbox')
+  d3.selectAll('.checkbox')
     .style('opacity', '1');
   document.getElementById('regional').disabled = false;
 
@@ -626,7 +720,9 @@ function myVis(d) {
     return {
       gdp: +data.gdp,
       score: +data.score,
-      country: data.country
+      country: data.country,
+      incgrp: data.incgrp,
+      region: data.Region
     };
   });
 
