@@ -36,8 +36,7 @@
         Select Country
       </button> -->
       <!-- <div class="dropdown-menu"> -->
-      <form id="searchForm" autocomplete="on" onSubmit="return false;">
-        <input type="text" list="countryDD" autocomplete="on" placeholder="Select a country">
+        <input id="selectedInput" type="text" list="countryDD" autocomplete="on" placeholder="Select a country">
         <datalist id="countryDD"></datalist>
       </form>
       <!-- </div> -->
@@ -69,7 +68,11 @@
 
       </div>
       <div class="col-sm">
-        <div class="benchmark-container"></div>
+        <div class="benchmark-container">
+          <div class="checkbox"> Show regional comparators
+            <input id="regional" type="checkbox" value="region">
+          </div>
+        </div>
         <div class="barchart-container"></div>
         <div class="lollipop-container"></div>
       </div>

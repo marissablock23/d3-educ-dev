@@ -24,6 +24,10 @@ domReady(() => {
 });
 
 function createBenchmark(data, xVar, yVar, addedParams){
+  d3.select('.checkbox')
+    .style('opacity', '.4');
+  document.getElementById('regional').disabled = true;
+
   const margin = {top: 50, right: 50, bottom: 50, left: 50},
   width = 600 - margin.left - margin.right,
   height = 600 - margin.top - margin.bottom;
@@ -183,24 +187,12 @@ function createBenchmark(data, xVar, yVar, addedParams){
 
   svg.selectAll('circle')
     .on('click', (data) => {
-      const filteredSelection = addedParams[0].filter(d => d.country === data.country && d.overall)
-                                        .sort((a, b) => a.year - b.year);
-        createBar(filteredSelection);
-
-        const filteredCross = addedParams[1].filter(d => d.country === data.country && d.value)
-                                        .sort((a, b) => a.year - b.year);
-
-        // const filteredSelectionDotQuantity = list[2].filter(data => data.country === country)
-        
-        // const filteredSelectionDotQuality = list[3].filter(data => data.country === country)
-
-        updateBenchmark(data.country);
-
-        createLollipopChart(filteredCross);
-
+      triggerAllCharts(addedParams, data.country);
     })
+
     .on('mouseover', mouseOverIn)
     .on('mouseout', mouseOverOut);
+
 }
 
 function createBar(data) {
@@ -439,12 +431,10 @@ function createLollipopChart(data) {
       .on('mouseover', mouseOverIn)
       .on('mouseout', mouseOverOut);
 
-
   svg.selectAll('circle')
       .transition()
       .duration(3000)
       .attr("cx", function(d) { return x(d.value); });
-
 
   svg.selectAll('.line')
       .transition()
@@ -457,7 +447,7 @@ function createLollipopChart(data) {
     .attr('y', 0)
     .attr('x', width/2)
     .style('text-anchor', 'middle')
-    .text('Disaggregated Returns to Schooling, most recent year:' + selectedCountry[0].country);
+    .text('Disaggregated Returns to Schooling, most recent year: ' + data[0].country);
 
   // x Axis Title
   svg.append('text')
@@ -478,6 +468,9 @@ function createLollipopChart(data) {
 }
 
 function updateBenchmark(country) {
+  d3.select('.checkbox')
+    .style('opacity', '1');
+  document.getElementById('regional').disabled = false;
 
   d3.selectAll('.selected-dot').remove();
 
@@ -496,6 +489,40 @@ function updateBenchmark(country) {
 
   const selected = d3.selectAll('.selected-dot').data();
   console.log(selected);
+
+///// ADD COMPARATOR
+  // let checked = false;
+  // d3.select('#regional')
+  //   .on('click', (data) => {
+  //     let checked = d3.select(this).property('checked')
+  //   });
+
+  // d3.selectAll('.dot')
+  //   .classed('comparator', (data) => {
+  //     if (data.region === selected.region) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+
+    // function highlightComparators() {
+    //   d3.selectAll("#regional").each(function(d) {
+    //     cb = d3.select(this);
+    //     grp = cb.property("value")
+
+    //     if(cb.property('checked')) {
+    //       if (data.region === selected.region) {
+    //         d3.selectAll('.dot')
+    //           .classed('comparator')
+    //       }
+    //     }
+    //   })
+    // }
+
+    // d3.selectAll('.checkbox')
+    //   .on('change', highlightComparators);
+
 
   // INITIALIZE AN EMPTY OBJECT WITH PROPERTIES 'YRS' AND 'SCORE', SET THEM TO FALSE, 
   // SO THAT WHEN WE LOOP OVER THE CONST 'SELECTED', WE SET THE PROPERTIES OF 'YRS' 
@@ -537,7 +564,6 @@ function updateBenchmark(country) {
 }
 
 function createDropdown(list){
-  // console.log(list);
 // Reference for how to remove duplicate items from array:
 // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
   const countries = [ list[2].map(l => l.country), list[3].map(l => l.country) ].flat();
@@ -549,31 +575,37 @@ function createDropdown(list){
   d3.select('#countryDD')
     .selectAll('option')
     .data(uniqueCountries)
-    // .enter()
     .join('option')
-      // .on('submit', (country) => {
-      //   console.log('asdf');
-      //   const filteredSelection = list[0].filter(data => data.country === country && data.overall)
-      //                                   .sort((a, b) => a.year - b.year);
-      //   console.log(filteredSelection);
-      //   createBar(filteredSelection);
+    .attr('value', d => d);
 
-      //   const filteredCross = list[1].filter(data => data.country === country && data.value)
-      //                                   .sort((a, b) => a.year - b.year);
-
-      //   updateBenchmark(country);
-
-      //   createLollipopChart(filteredCross);
-      // })
-      .attr('value', d => d);
-
-      d3.select('#searchForm')
-        .on('submit', function() {
-          alert('marissa!!');
-        });
+  d3.select('#selectedInput')
+    .on('change', () => {
+      const selectedInput = document.getElementById('selectedInput').value;
+      triggerAllCharts(list, selectedInput);
+    });
 }
 
+function triggerAllCharts(list, country) {
+  if(!country){
+    clearCharts();
+  }
+  const filteredSelection = list[0].filter(data => data.country === country && data.overall)
+                                .sort((a, b) => a.year - b.year);
+ 
+  const filteredCross = list[1].filter(data => data.country === country && data.value)
+                                  .sort((a, b) => a.year - b.year);
 
+  createBar(filteredSelection);
+  updateBenchmark(country);
+  createLollipopChart(filteredCross);
+
+}
+
+function clearCharts() {
+  d3.selectAll('svg.lollipop').remove();
+  d3.selectAll('svg.bar').remove();
+  d3.selectAll('.selected-dot').remove();
+}
 
 
 function myVis(d) {
@@ -584,7 +616,9 @@ function myVis(d) {
     return {
       gdp: +data.gdp,
       yrs: +data.yrs,
-      country: data.country
+      country: data.country,
+      incgrp: data.incgrp,
+      region: data.Region
     };
   });
 
@@ -600,11 +634,7 @@ function myVis(d) {
     return {
       country: data.country,
       overall: +data.overall,
-      // primary: +data.primary,
-      // secondary: +data.secondary,
-      // higher: +data.higher,
-      // male: +data.male,
-      // female: +data.female,
+
       year: parseDate(data.year)
     };
   });
@@ -621,20 +651,13 @@ function myVis(d) {
 
   const inputArray = [returnsData, returnsCrossData, quantityData, qualityData];
 
-  // const returnsPrimData = d[3].map(data => {
-  //   return {
-  //     country: data.country,
-  //     primary: +data.primary,
-  //     year: parseDate(data.year)
-  //   };
-  // });
+
 
   createBenchmark(quantityData, 'gdp', 'yrs', inputArray);
   createBenchmark(qualityData, 'gdp', 'score', inputArray);
-  // createBar(returnsData, 'overall', 'year', 'Bolivia');
 
   createDropdown(inputArray);
-  // createDropdown(returnsPrimData, 'primary');
+  console.log(quantityData);
 }
 
 // Legend
