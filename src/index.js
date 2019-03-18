@@ -199,27 +199,24 @@ function createBenchmark(data, xVar, yVar, addedParams){
   d3.select('#regional')
     .on('change', () => {
       regionChecked = !regionChecked;
-      if(regionChecked) {
-        addComparators(addedParams, 'region', regionChecked, incomeChecked)
-      } else {
-        removeComparators('region', regionChecked, incomeChecked);
-      }
+        toggleComparators(addedParams, 'region', regionChecked, incomeChecked)
     });
 
   d3.select('#incgrp')
     .on('change', () => {
       incomeChecked = !incomeChecked;
-      if(incomeChecked) {
-        addComparators(addedParams, 'incgrp', regionChecked, incomeChecked);
-      } else {
-        removeComparators('incgrp', regionChecked, incomeChecked);
-      }
+      toggleComparators(addedParams, 'incgrp', regionChecked, incomeChecked)
     });
 
 }
 
-function addComparators(data, type, regionChecked, incomeChecked) {
-  console.log(data);
+function toggleComparators(data, type, regionChecked, incomeChecked){
+
+  if(!regionChecked && !incomeChecked){
+    d3.selectAll('.comparator-dot')
+      .classed('comparator-dot', false);
+    return;
+  }
 
   const selectedCountry = d3.selectAll('.selected-dot').data();
   const countryName = selectedCountry[0].country;
@@ -230,25 +227,30 @@ function addComparators(data, type, regionChecked, incomeChecked) {
   let filteredScore;
 
   selectedCountry.forEach(selected => {
-
-    if(type === 'region' && incomeChecked === true){
+    // IF REGION GOT CHECKED AND INCOME GROUP IS ALREADY CHECKED
+    if(type === 'region' && regionChecked === true && incomeChecked === true){
+      console.log('Region: true (checked), Income: true');
       if(selected.yrs){
         filteredYrs = data[2].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
       }
       if(selected.score) {
         filteredScore = data[3].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
-      } 
-    } else if(type === 'region' && incomeChecked === false){
+      }
+    // IF REGION GOT CHECKED AND INCOME GROUP IS NOT CHECKED
+    } else if(type === 'region' && regionChecked === true && incomeChecked === false){
+      console.log('Region: true (checked), Income: false');
       if(selected.yrs){
         filteredYrs = data[2].filter(d => (d.region === selectedRegion) && d.country !== countryName);
-      } else if(selected.score) {
+      }
+      
+      if(selected.score) {
         filteredScore = data[3].filter(d => (d.region === selectedRegion) && d.country !== countryName);
-      } else {
-        return;
       }
     }
 
-    if(type === 'incgrp' && regionChecked === true){
+    // IF INCOME GROUP GOT CHECKED AND REGION IS ALREADY CHECKED
+    if(type === 'incgrp' && incomeChecked === true && regionChecked === true){
+      console.log('Region: true, Income: true (checked)');
       if (selected.yrs) {
         filteredYrs = data[2].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
       } 
@@ -256,7 +258,9 @@ function addComparators(data, type, regionChecked, incomeChecked) {
       if(selected.score) {
         filteredScore = data[3].filter(d => (d.region === selectedRegion) && (d.incgrp === selectedIncgrp) && d.country !== countryName);
       } 
-    } else if(type === 'incgrp' && regionChecked === false){
+    // IF INCOME GROUP GOT CHECKED AND REGION IS NOT CHECKED
+    } else if(type === 'incgrp' && incomeChecked === true && regionChecked === false){
+      console.log('Region: false, Income: true (checked)');
       if (selected.yrs) {
         filteredYrs = data[2].filter(d => (d.incgrp === selectedIncgrp) && d.country !== countryName);
       }
@@ -266,18 +270,49 @@ function addComparators(data, type, regionChecked, incomeChecked) {
       }
     }
 
+    // IF REGION GOT UNCHECKED AND INCOME GROUP IS ALREADY CHECKED
+    if(type === 'region' && regionChecked === false && incomeChecked === true){
+      console.log('Region: false (unchecked), Income: true');
+      if(selected.yrs){
+        filteredYrs = data[2].filter(d =>  (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      }
+
+      if(selected.score) {
+        filteredScore = data[3].filter(d => (d.incgrp === selectedIncgrp) && d.country !== countryName);
+      }
+    // IF INCOME GROUP GOT UNCHECKED AND REGION IS ALREADY CHECKED
+    } else if(type === 'incgrp' && incomeChecked === false && regionChecked === true){
+      console.log('Region: true, Income: false (unchecked)');
+      if(selected.yrs){
+        filteredYrs = data[2].filter(d => (d.region === selectedRegion) && d.country !== countryName);
+      }
+
+      if(selected.score) {
+        filteredScore = data[3].filter(d => (d.region === selectedRegion) && d.country !== countryName);
+      } 
+    }
+
   });
+
+  d3.selectAll('.dot')
+    .classed('comparator-dot', d => {
+      if(filteredYrs){
+        if(d.yrs){
+          if (filteredYrs.find(yrsObj => yrsObj === d)) {
+            return true;
+          }
+        }
+      }
+
+      if(filteredScore){
+        if(d.score){
+          if (filteredScore.find(scoresObj => scoresObj === d)) {
+            return true;
+          }
+        }
+      }
+    });
   
-  console.log(filteredYrs);
-  console.log(filteredScore);
-
-  const selectedType = d3.selectAll('.selected-dot').data()[0][type];
-  console.log(selectedType);
-
-  // const filteredYrs = data[2].filter(d => d.region === selectedType);
-  // console.log(filteredYrs);
-  // const filteredScore = data[3].filter(d => d.region === selectedType);
-  // console.log(filteredScore);
 }
 
 // function removeComparators
@@ -424,7 +459,7 @@ function createLollipopChart(data) {
   }
 
   // set the dimensions and margins of the graph
-  const margin = {top: 60, right: 30, bottom: 40, left: 90},
+  const margin = {top: 80, right: 30, bottom: 40, left: 100},
       width = 600 - margin.left - margin.right,
       height = 600 - margin.top - margin.bottom;
 
@@ -502,6 +537,7 @@ function createLollipopChart(data) {
   }
 
   // TRANSITION
+  // Lines and circles start at 0 on y axis
   svg.selectAll(".line")
     .data(data)
     .enter()
@@ -525,6 +561,7 @@ function createLollipopChart(data) {
       .on('mouseover', mouseOverIn)
       .on('mouseout', mouseOverOut);
 
+  // Transition circles and lines to their positions given by the data
   svg.selectAll('circle')
       .transition()
       .duration(3000)
@@ -559,7 +596,48 @@ function createLollipopChart(data) {
     .style('text-anchor', 'right')
     .text('Source: Psacharopoulos & Patrinos, 2018');
 
+ 
+  // // Define global averages
+  // const globalAverages = [
+  // {type: "overall", value: 8.8},
+  // {type: "primary", value: 7.8},
+  // {type: "secondary", value: 10.5},
+  // {type: "higher", value: 12.9},
+  // {type: "male", value: 7.9},
+  // {type: "female", value: 9.6}
+  // ]; 
+  
+  // d3.selectAll('circle')
+  //   .on('click', addGlobalAverages(data, globalAverages));
+
+
 }
+
+
+// function addGlobalAverages(olddata, newdata) {
+  
+//       // Merge data sets
+//       const update = olddata.push(newdata);
+//       console.log(olddata)
+
+//       // Select circles and add new data
+//       const circles = svg.lollipop.selectAll('circle')
+//           .data(update);
+
+//       circles.enter()
+//           .append('circle')
+//           .attr('cx', x(0))
+//           .attr('cy', function(d) { return y(d.type); })
+//           .attr('r', '4')
+//           .style('fill', '#69b3a2')
+//           .attr('stroke', 'black')
+//           .merge(circles)
+//           .transition()
+//           .duration(1000)
+//           .attr('cx', function(d) { return x(d.value); })
+
+
+// }
 
 function updateBenchmark(country) {
   d3.selectAll('.checkbox')
@@ -583,40 +661,6 @@ function updateBenchmark(country) {
 
   const selected = d3.selectAll('.selected-dot').data();
   console.log(selected);
-
-///// ADD COMPARATOR
-  // let checked = false;
-  // d3.select('#regional')
-  //   .on('click', (data) => {
-  //     let checked = d3.select(this).property('checked')
-  //   });
-
-  // d3.selectAll('.dot')
-  //   .classed('comparator', (data) => {
-  //     if (data.region === selected.region) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   });
-
-    // function highlightComparators() {
-    //   d3.selectAll("#regional").each(function(d) {
-    //     cb = d3.select(this);
-    //     grp = cb.property("value")
-
-    //     if(cb.property('checked')) {
-    //       if (data.region === selected.region) {
-    //         d3.selectAll('.dot')
-    //           .classed('comparator')
-    //       }
-    //     }
-    //   })
-    // }
-
-    // d3.selectAll('.checkbox')
-    //   .on('change', highlightComparators);
-
 
   // INITIALIZE AN EMPTY OBJECT WITH PROPERTIES 'YRS' AND 'SCORE', SET THEM TO FALSE, 
   // SO THAT WHEN WE LOOP OVER THE CONST 'SELECTED', WE SET THE PROPERTIES OF 'YRS' 
@@ -654,6 +698,11 @@ function updateBenchmark(country) {
     d3.select('.score-note')
       .classed('note-visible', false);
   }
+
+  // document.getElementById('region').value = false;
+  // document.getElementById('incgrp').value = false;
+  d3.selectAll('.comparator-dot')
+    .classed('comparator-dot', false);
 
 }
 

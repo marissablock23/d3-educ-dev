@@ -66,6 +66,9 @@ p, ol, li {
 .selected-dot {
   fill: #69b3a2 !important; }
 
+.comparator-dot {
+  fill: red; }
+
 .line {
   fill: none;
   stroke: teal;
