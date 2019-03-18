@@ -13,6 +13,8 @@ body {
 	margin-top: 25px;
 }
 
+
+
 h1.title {
 	font-size: 22px;
 	font-family: "Avenir Next";
@@ -88,7 +90,8 @@ p, ol, li {
 }
 
 .comparator-dot {
-	fill: red;
+	fill: #5e3c58 !important;
+	opacity: 1;
 }
 
 
@@ -96,4 +99,32 @@ p, ol, li {
 	fill: none;
 	stroke: teal;
 	stroke-width: 0.5;
+}
+
+.country-input {
+	width: 40%;
+}
+
+.sticky-search {
+	position: fixed !important;
+	top: 0;
+	background: #2e4045;
+	width: 100%;
+	left: 0;
+	height: 75px;
+	padding: 1.5% 11%;
+	z-index: 10;
+	transition: background .7s ease-in;
+}
+
+.sticky-search + .row {
+  padding-top: 60px;
+}
+
+h6.stickyTitle {
+	color: #fefefe;
+	font-style: italic;
+	font-family: "Avenir Next";
+	margin-left: 15%;
+	display: none;
 }

@@ -459,9 +459,9 @@ function createLollipopChart(data) {
   }
 
   // set the dimensions and margins of the graph
-  const margin = {top: 80, right: 30, bottom: 40, left: 100},
-      width = 600 - margin.left - margin.right,
-      height = 600 - margin.top - margin.bottom;
+  const margin = {top: 80, right: 20, bottom: 40, left: 100},
+      width = 500 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
   d3.selectAll('svg.lollipop').remove();
 
@@ -796,13 +796,38 @@ function myVis(d) {
 
   const inputArray = [returnsData, returnsCrossData, quantityData, qualityData];
 
-
-
   createBenchmark(quantityData, 'gdp', 'yrs', inputArray);
   createBenchmark(qualityData, 'gdp', 'score', inputArray);
 
   createDropdown(inputArray);
   console.log(quantityData);
+
+ // https://www.w3schools.com/howto/howto_js_navbar_sticky.asp
+  // Get the navbar
+  const search = document.getElementById('stickyDropdown');
+  const stickyTitle = document.getElementsByClassName('stickyTitle');
+
+  // Get the offset position of the navbar
+  let sticky = search.offsetTop;
+
+  // When the user scrolls the page, execute setSticky 
+  window.onscroll = function() {setSticky()};
+
+  // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+  function setSticky() {
+    console.log(sticky);
+    console.log(window.pageYOffset);
+
+    if (window.pageYOffset >= sticky) {
+      console.log('should stick!')
+      search.classList.add("sticky-search")
+      stickyTitle[0].style.display = 'inline';
+    } else {
+      console.log('should unstick')
+      search.classList.remove("sticky-search");
+      stickyTitle[0].style.display = 'none';
+    }
+  }
 }
 
 // Legend
