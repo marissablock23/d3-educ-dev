@@ -3,7 +3,7 @@
 // (I tend to think it's best to use screaming snake case for imported json)
 const domReady = require('domready');
 const d3 = Object.assign({}, require("d3-selection"), require("d3-scale"), require("d3-shape"), 
-  require("d3-array"), require("d3-axis"), require("d3-fetch"), require("d3-time-format"), require("d3-transition"));
+  require("d3-array"), require("d3-axis"), require("d3-fetch"), require("d3-time-format"), require("d3-transition"), require("d3-svg-legend"));
 
 
 domReady(() => {
@@ -29,8 +29,8 @@ function createBenchmark(data, xVar, yVar, addedParams){
   document.getElementById('regional').disabled = true;
 
   const margin = {top: 50, right: 50, bottom: 50, left: 50},
-  width = 600 - margin.left - margin.right,
-  height = 600 - margin.top - margin.bottom;
+  width = 500 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
   // const padding = 50;
 
   // Define max
@@ -116,9 +116,7 @@ function createBenchmark(data, xVar, yVar, addedParams){
     .call(xAxis)
 
   svg.append("g")
-    // .attr("transform", "translate(" + margin.left + "," + (margin.top-60)  + ")")
     .call(yAxis);
-
 
   // x Axis Title - Same for both
   svg.append('text')
@@ -144,7 +142,7 @@ function createBenchmark(data, xVar, yVar, addedParams){
   // Source
   svg.append('text')
     .attr('class', 'text source')
-    .attr('y', height + 50)
+    .attr('y', height + 45)
     .attr('x', 0)
     .style('text-anchor', 'right')
     .text('Source: World Development Indicators, World Bank Education Statistics')
@@ -187,6 +185,8 @@ function createBenchmark(data, xVar, yVar, addedParams){
 
   svg.selectAll('circle')
     .on('click', (data) => {
+      document.getElementById('incgrp').checked = false;
+      document.getElementById('regional').checked = false;
       triggerAllCharts(addedParams, data.country);
     })
 
@@ -315,7 +315,7 @@ function toggleComparators(data, type, regionChecked, incomeChecked){
   
 }
 
-// function removeComparators
+
 
 function createBar(data) {
 
@@ -323,9 +323,9 @@ function createBar(data) {
     return;
   }
 
-  const width = 700;
-  const height = 500;
-  const padding = 50;
+  const margin = {top: 50, right: 50, bottom: 50, left: 50},
+  width = 500 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
 
   d3.selectAll('svg.bar').remove();
 
@@ -343,24 +343,24 @@ function createBar(data) {
 
   // Define Y Scale
   const yScaleBar = d3.scaleLinear()
-    .domain([0, yMaxBar])
-    .range([height - padding, padding])
+    .domain([0, yMaxBar + 3])
+    .range([height, margin.right])
     .nice();
 
   const xMaxBar = d3.max(selectedCountry, (d) => {
     return d.year;
   });
 
- const xMinBar = d3.min(selectedCountry, (d) => {
+  const xMinBar = d3.min(selectedCountry, (d) => {
     return d.year;
   });
 
  // REFERENCED THE FOLLOWING URL FOR GETTING X-AXIS SCALE
  // https://plnkr.co/edit/HQz1BL9SECFIsQ5bG8qb?p=preview
- const xScaleBar = d3.scaleBand()
-  .rangeRound([0, width - (padding * 2)])
-  .domain(years)
-  .paddingInner(0.05);
+  const xScaleBar = d3.scaleBand()
+    .rangeRound([0, width])
+    .domain(years)
+    .paddingInner(0.05);
 
   // Map scales to axes
   const yAxisBar = d3.axisLeft(yScaleBar);
@@ -370,17 +370,19 @@ function createBar(data) {
   const svgbar = d3.select('.barchart-container')
     .append('svg')
     .attr('class', 'bar')
-    .attr("height", height)
-    .attr("width", width);
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width + margin.left + margin.right)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   // Map data to bars + use scales to map to variables
   const bars = svgbar.selectAll("rect")
     .data(selectedCountry)
     .enter()
     .append('rect')
-    .attr('class', 'bar')
+    .attr('class', 'rect')
     .attr("x", (d) => {
-      return xScaleBar(d.year) + padding;
+      return xScaleBar(d.year);
       })
     .attr("y", (d) => {
       return yScaleBar(0);
@@ -400,10 +402,41 @@ function createBar(data) {
       return yScaleBar(0) - yScaleBar(d.overall);
     })
 
+  // Add global average lines
+  // Pre-2000 Average
+  svgbar.append('g')
+    .attr('transform', 'translate(0, ' + yScaleBar(8.7) + ')')
+    .append('line')
+    .attr('x2', width)
+    .style("stroke", "#bfb5b2")
+    .style('stroke-dasharray', '4,4')
+    .style("stroke-width", "2px")
+    .attr("data-legend", 'Pre-2000')
+
+  // Post-2000 Average
+  svgbar.append('g')
+    .attr('transform', 'translate(0, ' + yScaleBar(9.1) + ')')
+    .append('line')
+    .attr('x2', width)
+    .style("stroke", "#2e4045")
+    .style('stroke-dasharray', '2,2')
+    .style("stroke-width", "2px")
+    .attr("data-legend", 'Post-2000')
+
+
+//   // Add Legend
+ // svgbar.append("g")
+ //  .attr("class","legend")
+ //  .attr("transform","translate(0," + height + ")")
+ //  .style("font-size","12px")
+ //  .call(d3.legend)
+// ///////////////////////////
+
+
 
   // g groups together all elements of axis - ticks, values, etc.
   svgbar.append("g")
-    .attr("transform", "translate(" + padding + "," + (height - padding) + ")")
+    .attr("transform", "translate(0," + height + ")")
     .call(xAxisBar)
     .selectAll("text")
     .attr("y", 9)
@@ -413,13 +446,12 @@ function createBar(data) {
     .style("text-anchor", "start");
 
   svgbar.append("g")
-    .attr("transform", "translate(" + (padding) + ", 0)")
     .call(yAxisBar);
 
   // x Axis Title
   svgbar.append('text')
     .attr('class', 'text')
-    .attr('y', height - (padding/4))
+    .attr('y', height + 35)
     .attr('x', (width/2))
     .style('text-anchor', 'middle')
     .text('Year');
@@ -428,7 +460,7 @@ function createBar(data) {
   svgbar.append('text')
     .attr('class', 'text')
     .attr('transform', 'rotate(-90)')
-    .attr('y', padding - 40)
+    .attr('y', -(margin.right - 25))
     .attr('x', -(height/2))
     .style('text-anchor', 'middle')
     .text('Returns to Schooling');
@@ -436,15 +468,15 @@ function createBar(data) {
   // Source
   svgbar.append('text')
     .attr('class', 'text source')
-    .attr('y', height)
-    .attr('x', width/2)
+    .attr('y', height + 45)
+    .attr('x', 0)
     .style('text-anchor', 'right')
     .text('Source: Psacharopoulos & Patrinos, 2018');
 
   // Title
   svgbar.append('text')
     .attr('class', 'text title')
-    .attr('y', padding)
+    .attr('y', margin.top)
     .attr('x', (width/2))
     .style('text-anchor', 'middle')
     .text('Returns to Schooling over time: ' + selectedCountry[0].country);
@@ -459,7 +491,7 @@ function createLollipopChart(data) {
   }
 
   // set the dimensions and margins of the graph
-  const margin = {top: 80, right: 20, bottom: 40, left: 100},
+  const margin = {top: 100, right: 20, bottom: 50, left: 100},
       width = 500 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
@@ -529,7 +561,7 @@ function createLollipopChart(data) {
   function mouseOverOut(d) {
     d3.select(this)
       // .attr('r', 5)
-      .style('fill', '"#69b3a2"');
+      .style('fill', '#69b3a2');
     d3.select('.label')
       .remove();
     d3.select('.sourcelabel')
@@ -547,7 +579,7 @@ function createLollipopChart(data) {
       .attr('x2', x(0))
       .attr("y1", function(d) { return y(d.type); })
       .attr("y2", function(d) { return y(d.type); })
-      .attr("stroke", "grey");
+      .attr("stroke", "black");
 
   svg.selectAll("circle")
     .data(data)
@@ -557,6 +589,7 @@ function createLollipopChart(data) {
       .attr("cy", function(d) { return y(d.type); })
       .attr("r", "4")
       .style("fill", "#69b3a2")
+      .style('z-index', 99)
       .attr("stroke", "black")
       .on('mouseover', mouseOverIn)
       .on('mouseout', mouseOverOut);
@@ -575,7 +608,7 @@ function createLollipopChart(data) {
   // Title
   svg.append('text')
     .attr('class', 'text title')
-    .attr('y', 0)
+    .attr('y', -30)
     .attr('x', width/2)
     .style('text-anchor', 'middle')
     .text('Disaggregated Returns to Schooling, most recent year: ' + data[0].country);
@@ -591,60 +624,151 @@ function createLollipopChart(data) {
   // Source
   svg.append('text')
     .attr('class', 'text source')
-    .attr('y', height + 50)
+    .attr('y', height + 45)
     .attr('x', 0)
     .style('text-anchor', 'right')
     .text('Source: Psacharopoulos & Patrinos, 2018');
 
- 
-  // // Define global averages
-  // const globalAverages = [
-  // {type: "overall", value: 8.8},
-  // {type: "primary", value: 7.8},
-  // {type: "secondary", value: 10.5},
-  // {type: "higher", value: 12.9},
-  // {type: "male", value: 7.9},
-  // {type: "female", value: 9.6}
-  // ]; 
-  
-  // d3.selectAll('circle')
-  //   .on('click', addGlobalAverages(data, globalAverages));
+  // Define global averages
+  const globalAverages = [
+    {type: "overall", value: 8.8},
+    {type: "primary", value: 7.8},
+    {type: "secondary", value: 10.5},
+    {type: "higher", value: 12.9},
+    {type: "male", value: 7.9},
+    {type: "female", value: 9.6}
+  ]; 
+
+  d3.select('#global')
+    .on('change', addGlobalAverages);
+
+
+  d3.selectAll('.checkbox-lollipop')
+    .style('opacity', '1');
+  document.getElementById('global').disabled = false;
+
+  let globalChecked = false;
+
+  function addGlobalAverages(){
+    console.log(globalAverages);
+    globalChecked = !globalChecked;
+
+    if (globalChecked){
+      svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", x(0))
+          .attr("cy", function(d) { return y(d.type); })
+          .attr("r", "4")
+          .style("fill", "#69b3a2")
+          .attr("stroke", "black")
+
+      svg.selectAll('.avg-data')
+        .data(globalAverages)
+        .enter()
+        .append('circle')
+          .attr('class', 'avg-data')
+          .attr('cx', d => x(0))
+          .attr('cy', d => y(d.type))
+          .attr("r", "4")
+          .style("fill", "orange")
+          .attr("stroke", "black")
+          .transition()
+          .duration(2000)
+          .attr("cx", function(d) { return x(d.value); });
+
+  // Line
+      svg.selectAll("line")
+        .data(data)
+        .enter()
+        .append("line")
+          .attr('x1', x(0))
+          .attr('x2', x(0))
+          .attr("y1", function(d) { return y(d.type); })
+          .attr("y2", function(d) { return y(d.type); })
+          .attr("stroke", "grey");
+
+      svg.selectAll('.line-avg')
+        .data(globalAverages)
+        .enter()
+        .append('line')
+          .attr('class', 'line-avg')
+          .attr('x1', d => x(0))
+          .attr('x2', d => x(0))
+          .attr("y1", function(d) { return y(d.type); })
+          .attr("y2", function(d) { return y(d.type); })
+          .attr("stroke", "black")   
+          .transition()
+          .duration(2000)
+          .attr("x1", function(d) { return x(d.value); });
+
+
+         // Legend
+// First, add rectangles, then add text labels
+    const legend = svg.append("g");
+
+      legend.append("circle")
+        .attr("class", "country-circle")
+        .attr("cy", -15)
+        .attr("cx", width/5)
+        .attr("r", "4")
+        .style("fill", "#69b3a2")
+        .attr("stroke", "black");
+
+      legend.append("text")
+        .attr("class", "text-legend")
+        .attr("y", -10)
+        .attr("x", (width/5) + 15)
+        .text("Selected Country");
+
+
+      legend.append("circle")
+        .attr("class", "country-circle")
+        .attr("cy", -15)
+        .attr("cx", width/1.5)
+        .attr("r", "4")
+        .style("fill", "orange")
+        .attr("stroke", "black");
+
+      legend.append("text")
+        .attr("class", "text-legend")
+        .attr("y", -10)
+        .attr("x", (width/1.5) + 15)
+        .text("Global Average");
+
+
+        } else {
+
+          d3.selectAll('.avg-data')
+            .transition()
+            .duration(1500)
+            .attr('cx', width)
+            .style('opacity', 0)
+            .remove();
+
+          d3.selectAll('.line-avg').remove();
+          d3.selectAll('.text-legend, .country-circle').remove();
+
+      }
+
+  }
+
 
 
 }
-
-
-// function addGlobalAverages(olddata, newdata) {
-  
-//       // Merge data sets
-//       const update = olddata.push(newdata);
-//       console.log(olddata)
-
-//       // Select circles and add new data
-//       const circles = svg.lollipop.selectAll('circle')
-//           .data(update);
-
-//       circles.enter()
-//           .append('circle')
-//           .attr('cx', x(0))
-//           .attr('cy', function(d) { return y(d.type); })
-//           .attr('r', '4')
-//           .style('fill', '#69b3a2')
-//           .attr('stroke', 'black')
-//           .merge(circles)
-//           .transition()
-//           .duration(1000)
-//           .attr('cx', function(d) { return x(d.value); })
-
-
-// }
 
 function updateBenchmark(country) {
   d3.selectAll('.checkbox')
     .style('opacity', '1');
   document.getElementById('regional').disabled = false;
 
-  d3.selectAll('.selected-dot').remove();
+  d3.selectAll('.selected-dot')
+    .classed('selected-dot', false)
+    .transition()
+    .duration(1000)
+    .attr('r', 5)
+    .style('opacity', .45)
 
   d3.selectAll('.dot')
     .classed('selected-dot', (data) => {
@@ -656,6 +780,8 @@ function updateBenchmark(country) {
     });
 
   d3.selectAll('.selected-dot')
+    .transition()
+    .duration(1000)
     .attr('r', 8)
     .style('opacity', 1);
 
@@ -723,8 +849,15 @@ function createDropdown(list){
 
   d3.select('#selectedInput')
     .on('change', () => {
+
+
       const selectedInput = document.getElementById('selectedInput').value;
-      triggerAllCharts(list, selectedInput);
+      console.log(selectedInput);
+      if(selectedInput.length > 0){
+        triggerAllCharts(list, selectedInput);
+      } else {
+        clearCharts();
+      }
     });
 }
 
@@ -732,15 +865,27 @@ function triggerAllCharts(list, country) {
   if(!country){
     clearCharts();
   }
+  
+  document.getElementById('selectedInput').value = country;
+  document.getElementById('global').checked = false;
+
   const filteredSelection = list[0].filter(data => data.country === country && data.overall)
                                 .sort((a, b) => a.year - b.year);
  
   const filteredCross = list[1].filter(data => data.country === country && data.value)
                                   .sort((a, b) => a.year - b.year);
 
-  createBar(filteredSelection);
   updateBenchmark(country);
-  createLollipopChart(filteredCross);
+
+  if(filteredSelection.length === 0 && filteredCross.length === 0){
+    document.getElementById('no-data').style.display = 'inline-block';
+  } else {
+    document.getElementById('no-data').style.display = 'none';
+    createBar(filteredSelection);
+    createLollipopChart(filteredCross);
+  }
+
+  
 
 }
 
@@ -815,16 +960,11 @@ function myVis(d) {
 
   // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
   function setSticky() {
-    console.log(sticky);
-    console.log(window.pageYOffset);
 
     if (window.pageYOffset >= sticky) {
-      console.log('should stick!')
       search.classList.add("sticky-search")
       stickyTitle[0].style.display = 'inline';
-    } else {
-      console.log('should unstick')
-      search.classList.remove("sticky-search");
+    } else {      search.classList.remove("sticky-search");
       stickyTitle[0].style.display = 'none';
     }
   }

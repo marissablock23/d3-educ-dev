@@ -47,7 +47,7 @@ p, ol, li {
 
 .label, .sourcelabel {
   font-family: "Avenir Next";
-  font-size: 12px; }
+  font-size: 10px; }
 
 .subtitle {
   font-style: italic;
@@ -56,7 +56,7 @@ p, ol, li {
 .source {
   font-size: 8px; }
 
-.bar {
+.rect {
   fill: #69b3a2; }
 
 .dot {
@@ -72,7 +72,6 @@ p, ol, li {
 
 .line {
   fill: none;
-  stroke: teal;
   stroke-width: 0.5; }
 
 .country-input {
@@ -98,3 +97,12 @@ h6.stickyTitle {
   font-family: "Avenir Next";
   margin-left: 15%;
   display: none; }
+
+.no-data {
+  display: none; }
+
+.no-data span {
+  color: red;
+  font-size: 14px;
+  font-family: "Avenir Next";
+  letter-spacing: 1.1px; }
