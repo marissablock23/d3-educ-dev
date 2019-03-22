@@ -98,6 +98,9 @@ h6.stickyTitle {
   margin-left: 15%;
   display: none; }
 
+.inline-charts {
+  display: inline-block; }
+
 .no-data {
   display: none; }
 
@@ -106,3 +109,11 @@ h6.stickyTitle {
   font-size: 14px;
   font-family: "Avenir Next";
   letter-spacing: 1.1px; }
+
+.instructions {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: justify; }
+
+.text-legend {
+  font-size: 12px; }

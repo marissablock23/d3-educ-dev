@@ -124,7 +124,7 @@ function createBenchmark(data, xVar, yVar, addedParams){
     .attr('y', height + 35)
     .attr('x', width/2)
     .style('text-anchor', 'middle')
-    .text('GDP per capita, (constant 2010 US$), 2017');
+    .text('Log of GDP per capita, (constant 2010 US$), 2017');
 
   // y Axis Title - Differs
   svg.append('text')
@@ -150,7 +150,7 @@ function createBenchmark(data, xVar, yVar, addedParams){
   // Title - Differs
   svg.append('text')
     .attr('class', 'text title')
-    .attr('y', 0)
+    .attr('y', -10)
     .attr('x', width/2)
     .style('text-anchor', 'middle')
     .text(function(title) {
@@ -343,7 +343,7 @@ function createBar(data) {
 
   // Define Y Scale
   const yScaleBar = d3.scaleLinear()
-    .domain([0, yMaxBar + 3])
+    .domain([0, yMaxBar + 5])
     .range([height, margin.right])
     .nice();
 
@@ -402,37 +402,6 @@ function createBar(data) {
       return yScaleBar(0) - yScaleBar(d.overall);
     })
 
-  // Add global average lines
-  // Pre-2000 Average
-  svgbar.append('g')
-    .attr('transform', 'translate(0, ' + yScaleBar(8.7) + ')')
-    .append('line')
-    .attr('x2', width)
-    .style("stroke", "#bfb5b2")
-    .style('stroke-dasharray', '4,4')
-    .style("stroke-width", "2px")
-    .attr("data-legend", 'Pre-2000')
-
-  // Post-2000 Average
-  svgbar.append('g')
-    .attr('transform', 'translate(0, ' + yScaleBar(9.1) + ')')
-    .append('line')
-    .attr('x2', width)
-    .style("stroke", "#2e4045")
-    .style('stroke-dasharray', '2,2')
-    .style("stroke-width", "2px")
-    .attr("data-legend", 'Post-2000')
-
-
-//   // Add Legend
- // svgbar.append("g")
- //  .attr("class","legend")
- //  .attr("transform","translate(0," + height + ")")
- //  .style("font-size","12px")
- //  .call(d3.legend)
-// ///////////////////////////
-
-
 
   // g groups together all elements of axis - ticks, values, etc.
   svgbar.append("g")
@@ -476,7 +445,7 @@ function createBar(data) {
   // Title
   svgbar.append('text')
     .attr('class', 'text title')
-    .attr('y', margin.top)
+    .attr('y', 20)
     .attr('x', (width/2))
     .style('text-anchor', 'middle')
     .text('Returns to Schooling over time: ' + selectedCountry[0].country);
@@ -485,13 +454,13 @@ function createBar(data) {
 
 // Inspiration: https://www.d3-graph-gallery.com/graph/lollipop_horizontal.html
 // https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
-function createLollipopChart(data) {
+function createLollipopChart(data, selectedCountry) {
   if(data.length < 1){
     return;
   }
 
   // set the dimensions and margins of the graph
-  const margin = {top: 100, right: 20, bottom: 50, left: 100},
+  const margin = {top: 50, right: 50, bottom: 50, left: 50},
       width = 500 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
@@ -611,7 +580,15 @@ function createLollipopChart(data) {
     .attr('y', -30)
     .attr('x', width/2)
     .style('text-anchor', 'middle')
-    .text('Disaggregated Returns to Schooling, most recent year: ' + data[0].country);
+    .text('Disaggregated Returns to Schooling,');
+
+  // Subtitle
+  svg.append('text')
+    .attr('class', 'text title')
+    .attr('y', -10)
+    .attr('x', width/2)
+    .style('text-anchor', 'middle')
+    .text('most recent year: ' + data[0].country);
 
   // x Axis Title
   svg.append('text')
@@ -653,6 +630,16 @@ function createLollipopChart(data) {
     console.log(globalAverages);
     globalChecked = !globalChecked;
 
+    const yMaxBar = d3.max(selectedCountry, (d) => {
+      return d.overall;
+    });
+
+    // Define Y Scale
+  const yScaleBar = d3.scaleLinear()
+    .domain([0, yMaxBar + 5])
+    .range([height, margin.right])
+    .nice();
+
     if (globalChecked){
       svg.selectAll("circle")
         .data(data)
@@ -672,7 +659,7 @@ function createLollipopChart(data) {
           .attr('cx', d => x(0))
           .attr('cy', d => y(d.type))
           .attr("r", "4")
-          .style("fill", "orange")
+          .style("fill", "#c7bbc9")
           .attr("stroke", "black")
           .transition()
           .duration(2000)
@@ -687,7 +674,7 @@ function createLollipopChart(data) {
           .attr('x2', x(0))
           .attr("y1", function(d) { return y(d.type); })
           .attr("y2", function(d) { return y(d.type); })
-          .attr("stroke", "grey");
+          .attr("stroke", "black");
 
       svg.selectAll('.line-avg')
         .data(globalAverages)
@@ -704,13 +691,13 @@ function createLollipopChart(data) {
           .attr("x1", function(d) { return x(d.value); });
 
 
-         // Legend
-// First, add rectangles, then add text labels
+    // Legend
+    // First, add rectangles, then add text labels
     const legend = svg.append("g");
 
       legend.append("circle")
         .attr("class", "country-circle")
-        .attr("cy", -15)
+        .attr("cy", 5)
         .attr("cx", width/5)
         .attr("r", "4")
         .style("fill", "#69b3a2")
@@ -718,25 +705,101 @@ function createLollipopChart(data) {
 
       legend.append("text")
         .attr("class", "text-legend")
-        .attr("y", -10)
+        .attr("y", 10)
         .attr("x", (width/5) + 15)
         .text("Selected Country");
 
 
       legend.append("circle")
         .attr("class", "country-circle")
-        .attr("cy", -15)
+        .attr("cy", 5)
         .attr("cx", width/1.5)
         .attr("r", "4")
-        .style("fill", "orange")
+        .style("fill", "#c7bbc9")
         .attr("stroke", "black");
 
       legend.append("text")
         .attr("class", "text-legend")
-        .attr("y", -10)
+        .attr("y", 10)
         .attr("x", (width/1.5) + 15)
         .text("Global Average");
 
+      // Add global average lines
+      // Pre-2000 Average
+      d3.selectAll('.bar')
+        .append('g')
+        .attr('transform', 'translate(0, ' + yScaleBar(8.7) + ')')
+        .append('line')
+          .attr('class', 'avg-data')
+          .transition()
+          .duration(1500)
+          .attr('x1', 50)
+          .attr('x2', width + 60)
+          // .attr('y1', yScaleBar(8.7))
+          // .attr('y2', yScaleBar(8.7))
+          .style("stroke", "#bfb5b2")
+          .style('stroke-dasharray', '4,4')
+          .style("stroke-width", "2px")
+          .attr("data-legend", 'Pre-2000')
+
+        // Post-2000 Average
+      d3.selectAll('.bar')
+        .append('g')
+        .attr('transform', 'translate(0, ' + yScaleBar(9.1) + ')')
+        .append('line')
+          .attr('class', 'avg-data')
+          .transition()
+          .duration(1500)
+          .attr('x1', 50)
+          .attr('x2', width + 60)
+          // .attr('y1', yScaleBar(9.1))
+          // .attr('y2', yScaleBar(9.1))
+          .style("stroke", "#2e4045")
+          .style('stroke-dasharray', '2,2')
+          .style("stroke-width", "2px")
+          .attr("data-legend", 'Post-2000')
+
+        // Legend
+        // First, add rectangles, then add text labels
+      const lineLegend = d3.selectAll('.bar').append('g');
+
+      lineLegend.append("line")
+        .attr("class", "country-line")
+        .attr("x1", 100)
+        .attr("x2", 120)
+        .attr('y1', 85)
+        .attr('y2', 85)
+        .style("fill", "#69b3a2")
+        .style("stroke", "#2e4045")
+        .style('stroke-dasharray', '2,2')
+        .style("stroke-width", "2px")
+        .attr("data-legend", 'Post-2000');
+
+      lineLegend.append("text")
+        .attr("class", "text-legend")
+        .attr("y", 90)
+        .attr("x", 125)
+        .text("Post-2000");
+
+
+      lineLegend.append("line")
+        .attr("class", "country-line")
+        .attr("x1", 240)
+        .attr("x2", 260)
+        .attr('y1', 85)
+        .attr('y2', 85)
+        .style("fill", "#c7bbc9")
+        .attr("stroke", "black")
+        .style("stroke", "#bfb5b2")
+        .style('stroke-dasharray', '4,4')
+        .style("stroke-width", "2px")
+        .attr("data-legend", 'Pre-2000')
+
+      lineLegend.append("text")
+        .attr("class", "text-legend")
+        .attr("y", 90)
+        .attr("x", 265)
+        .text("Pre-2000");
 
         } else {
 
@@ -748,13 +811,11 @@ function createLollipopChart(data) {
             .remove();
 
           d3.selectAll('.line-avg').remove();
-          d3.selectAll('.text-legend, .country-circle').remove();
+          d3.selectAll('.text-legend, .country-circle, .country-line').remove();
 
       }
 
   }
-
-
 
 }
 
@@ -882,7 +943,7 @@ function triggerAllCharts(list, country) {
   } else {
     document.getElementById('no-data').style.display = 'none';
     createBar(filteredSelection);
-    createLollipopChart(filteredCross);
+    createLollipopChart(filteredCross, filteredSelection);
   }
 
   
