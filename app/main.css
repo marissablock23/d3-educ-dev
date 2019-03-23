@@ -98,6 +98,9 @@ h6.stickyTitle {
   margin-left: 15%;
   display: none; }
 
+.checkbox-lollipop {
+  display: none; }
+
 .inline-charts {
   display: inline-block; }
 

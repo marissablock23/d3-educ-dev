@@ -214,6 +214,9 @@ function toggleComparators(data, type, regionChecked, incomeChecked){
 
   if(!regionChecked && !incomeChecked){
     d3.selectAll('.comparator-dot')
+      // .transition()
+      // .duration(1500)
+      // .style('opacity', .45)
       .classed('comparator-dot', false);
     return;
   }
@@ -312,6 +315,12 @@ function toggleComparators(data, type, regionChecked, incomeChecked){
         }
       }
     });
+
+    d3.selectAll('.comparator-dot')
+      .style('opacity', .45)
+      .transition()
+      .duration(1500)
+      .style('opacity', 1);
   
 }
 
@@ -401,7 +410,6 @@ function createBar(data) {
     .attr("height", (d) => {
       return yScaleBar(0) - yScaleBar(d.overall);
     })
-
 
   // g groups together all elements of axis - ticks, values, etc.
   svgbar.append("g")
@@ -627,7 +635,6 @@ function createLollipopChart(data, selectedCountry) {
   let globalChecked = false;
 
   function addGlobalAverages(){
-    console.log(globalAverages);
     globalChecked = !globalChecked;
 
     const yMaxBar = d3.max(selectedCountry, (d) => {
@@ -726,38 +733,38 @@ function createLollipopChart(data, selectedCountry) {
 
       // Add global average lines
       // Pre-2000 Average
-      d3.selectAll('.bar')
-        .append('g')
-        .attr('transform', 'translate(0, ' + yScaleBar(8.7) + ')')
-        .append('line')
-          .attr('class', 'avg-data')
-          .transition()
-          .duration(1500)
-          .attr('x1', 50)
-          .attr('x2', width + 60)
-          // .attr('y1', yScaleBar(8.7))
-          // .attr('y2', yScaleBar(8.7))
-          .style("stroke", "#bfb5b2")
-          .style('stroke-dasharray', '4,4')
-          .style("stroke-width", "2px")
-          .attr("data-legend", 'Pre-2000')
+    d3.selectAll('.bar')
+      .append('g')
+      .attr('transform', 'translate(0, ' + yScaleBar(8.7) + ')')
+      .append('line')
+        .attr('class', 'avg-data')
+        .transition()
+        .duration(1500)
+        .attr('x1', 50)
+        .attr('x2', width + 60)
+        // .attr('y1', yScaleBar(8.7))
+        // .attr('y2', yScaleBar(8.7))
+        .style("stroke", "#bfb5b2")
+        .style('stroke-dasharray', '4,4')
+        .style("stroke-width", "2px")
+        .attr("data-legend", 'Pre-2000')
 
         // Post-2000 Average
-      d3.selectAll('.bar')
-        .append('g')
-        .attr('transform', 'translate(0, ' + yScaleBar(9.1) + ')')
-        .append('line')
-          .attr('class', 'avg-data')
-          .transition()
-          .duration(1500)
-          .attr('x1', 50)
-          .attr('x2', width + 60)
-          // .attr('y1', yScaleBar(9.1))
-          // .attr('y2', yScaleBar(9.1))
-          .style("stroke", "#2e4045")
-          .style('stroke-dasharray', '2,2')
-          .style("stroke-width", "2px")
-          .attr("data-legend", 'Post-2000')
+    d3.selectAll('.bar')
+      .append('g')
+      .attr('transform', 'translate(0, ' + yScaleBar(9.1) + ')')
+      .append('line')
+        .attr('class', 'avg-data')
+        .transition()
+        .duration(1500)
+        .attr('x1', 50)
+        .attr('x2', width + 60)
+        // .attr('y1', yScaleBar(9.1))
+        // // .attr('y2', yScaleBar(9.1))
+        .style("stroke", "#2e4045")
+        .style('stroke-dasharray', '2,2')
+        .style("stroke-width", "2px")
+        .attr("data-legend", 'Post-2000')
 
         // Legend
         // First, add rectangles, then add text labels
@@ -888,7 +895,9 @@ function updateBenchmark(country) {
 
   // document.getElementById('region').value = false;
   // document.getElementById('incgrp').value = false;
-  d3.selectAll('.comparator-dot')
+  d3.selectAll('comparator-dot')
+    // .transition()
+    // .duration(1500)
     .classed('comparator-dot', false);
 
 }
@@ -940,8 +949,14 @@ function triggerAllCharts(list, country) {
 
   if(filteredSelection.length === 0 && filteredCross.length === 0){
     document.getElementById('no-data').style.display = 'inline-block';
+    document.getElementsByClassName('inline-charts')[0].style.display = 'none';
+    document.getElementsByClassName('inline-charts')[1].style.display = 'none';
+    document.getElementsByClassName('checkbox-lollipop')[0].style.display = 'none';
   } else {
     document.getElementById('no-data').style.display = 'none';
+    document.getElementsByClassName('inline-charts')[0].style.display = 'inline-block';
+    document.getElementsByClassName('inline-charts')[1].style.display = 'inline-block';
+    document.getElementsByClassName('checkbox-lollipop')[0].style.display = 'block';
     createBar(filteredSelection);
     createLollipopChart(filteredCross, filteredSelection);
   }
